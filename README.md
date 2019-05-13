@@ -4,7 +4,7 @@ Inchoo Product Bookmark Magento 2 Extension
 
 This task is created for the learning purpose of new employees and interns who are getting familiar with Magento. The goal is to create “Inchoo Product Bookmark” Magento extension. 
 The extension will let customers bookmark products they like and group them to specific bookmark list. Customer will be able to see bookmarked products in its “My Account” interface. Magento Administrator will be able to see most bookmarked products.
-The extension needs to have the following have following features:
+The extension needs to have the following features:
 
 - Customer can bookmark product (needs to be logged in). 
 - Bookmarked product is always in one “Bookmark list”.
