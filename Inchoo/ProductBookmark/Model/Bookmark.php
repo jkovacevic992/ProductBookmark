@@ -8,8 +8,23 @@
 
 namespace Inchoo\ProductBookmark\Model;
 
+use Inchoo\ProductBookmark\Api\Data\BookmarkInterface;
+use Magento\Framework\Model\AbstractModel;
 
-class Bookmark
+class Bookmark extends AbstractModel implements BookmarkInterface
 {
+    protected function _construct()
+    {
+        $this->_init(\Inchoo\ProductBookmark\Model\ResourceModel\Bookmark::class);
+    }
 
+    public function getId()
+    {
+        return $this->getData(self::BOOKMARK_ID);
+    }
+
+    public function setId($id)
+    {
+        return $this->setData(self::BOOKMARK_ID, $id);
+    }
 }

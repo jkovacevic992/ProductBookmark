@@ -1,0 +1,16 @@
+<?php
+/**
+ * @var \Inchoo\ProductBookmark\Block\BookmarkList\BookmarkList $block
+ */
+?>
+<h3>Create New Bookmark List</h3>
+<form action="<?php echo $block->getFormAction() ?>" method="post">
+    <label for="title">Name</label>
+    <input class="input-text" name="title" type="text">
+    <input class="action subscribe primary" type="submit" value="Submit">
+</form>
+
+<h3>My Bookmark Lists:</h3>
+<?php foreach ($block->getBookmarkLists() as $bookmarkList): ?>
+<h4><?= $bookmarkList->getTitle() ?></h4>
+<?php endforeach; ?>

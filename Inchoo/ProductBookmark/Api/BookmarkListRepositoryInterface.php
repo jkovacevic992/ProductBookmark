@@ -8,8 +8,13 @@
 
 namespace Inchoo\ProductBookmark\Api;
 
+use Magento\Framework\Api\SearchCriteriaInterface;
 
 interface BookmarkListRepositoryInterface
 {
-
+    public function getById($bookmarkListId);
+    public function save(Data\BookmarkListInterface $bookmarkList);
+    public function delete(Data\BookmarkListInterface $bookmarkList);
+    public function getList(SearchCriteriaInterface $searchCriteria);
+    public function saveToDb($content, $customerId);
 }

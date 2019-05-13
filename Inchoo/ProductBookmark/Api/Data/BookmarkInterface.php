@@ -8,8 +8,11 @@
 
 namespace Inchoo\ProductBookmark\Api\Data;
 
-
 interface BookmarkInterface
 {
+    const BOOKMARK_ID = 'bookmark_id';
 
+    public function getId();
+
+    public function setId($id);
 }

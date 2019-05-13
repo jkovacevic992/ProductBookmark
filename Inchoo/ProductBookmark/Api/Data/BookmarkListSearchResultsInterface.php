@@ -8,8 +8,11 @@
 
 namespace Inchoo\ProductBookmark\Api\Data;
 
+use Magento\Framework\Api\Search\SearchResultInterface;
 
-interface BookmarkListSearchResultsInterface
+interface BookmarkListSearchResultsInterface extends SearchResultInterface
 {
+    public function getItems();
 
+    public function setItems(array $items = null);
 }

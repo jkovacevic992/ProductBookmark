@@ -9,7 +9,18 @@
 namespace Inchoo\ProductBookmark\Model\ResourceModel;
 
 
-class Bookmark
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+
+class Bookmark extends AbstractDb
 {
 
+    /**
+     * Resource initialization
+     *
+     * @return void
+     */
+    protected function _construct()
+    {
+        $this->_init('bookmark', 'bookmark_id');
+    }
 }
