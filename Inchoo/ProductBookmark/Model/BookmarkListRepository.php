@@ -109,13 +109,9 @@ class BookmarkListRepository implements BookmarkListRepositoryInterface
         $content = $this->escaper->escapeHtml($content);
         $customerId = $this->escaper->escapeHtml($customerId);
 
-        try {
-            $bookmarkList = $this->bookmarkListModelFactory->create();
-            $bookmarkList->setCustomerEntityId($customerId);
-            $bookmarkList->setTitle($content);
-            $this->bookmarkListResource->save($bookmarkList);
-        } catch (\Exception $e) {
-            $e->getMessage();
-        }
+        $bookmarkList = $this->bookmarkListModelFactory->create();
+        $bookmarkList->setCustomerEntityId($customerId);
+        $bookmarkList->setTitle($content);
+        $this->bookmarkListResource->save($bookmarkList);
     }
 }

@@ -25,25 +25,13 @@ class BookmarkList extends Action
      * @var Session
      */
     protected $session;
-    /**
-     * @var \Inchoo\ProductBookmark\Api\Data\BookmarkListInterface
-     */
-    protected $bookmarkListModelFactory;
-
-    protected $bookmarkListRepository;
 
     public function __construct(
         Context $context,
-        PageFactory $pageFactory,
-        Session $session,
-        \Inchoo\ProductBookmark\Api\Data\BookmarkListInterfaceFactory $bookmarkListModelFactory,
-        \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository
+        PageFactory $pageFactory
     ) {
         parent::__construct($context);
         $this->pageFactory = $pageFactory;
-        $this->bookmarkListModelFactory = $bookmarkListModelFactory;
-        $this->session = $session;
-        $this->bookmarkListRepository = $bookmarkListRepository;
     }
 
     /**
@@ -56,9 +44,6 @@ class BookmarkList extends Action
      */
     public function execute()
     {
-        $customerId = $this->session->getCustomerId();
-        $content = $this->getRequest()->getParam('title');
-        $this->bookmarkListRepository->saveToDb($content, $customerId);
         $resultPage = $this->pageFactory->create();
         $resultPage->getConfig()->getTitle()->set('My Bookmarks');
         return $resultPage;

@@ -6,11 +6,15 @@
 <h3>Create New Bookmark List</h3>
 <form action="<?php echo $block->getFormAction() ?>" method="post">
     <label for="title">Name</label>
-    <input class="input-text" name="title" type="text">
+    <input class="textarea-example-1" name="title" type="text">
     <input class="action subscribe primary" type="submit" value="Submit">
 </form>
 
-<h3>My Bookmark Lists:</h3>
-<?php foreach ($block->getBookmarkLists() as $bookmarkList): ?>
-<h4><?= $bookmarkList->getTitle() ?></h4>
+<h3>My Bookmark Lists:</h3><br>
+<ul class="list">
+    <?php foreach ($block->getBookmarkLists() as $bookmarkList): ?>
+    <li><?= $bookmarkList->getTitle() ?></li>
+
+
 <?php endforeach; ?>
+</ul>

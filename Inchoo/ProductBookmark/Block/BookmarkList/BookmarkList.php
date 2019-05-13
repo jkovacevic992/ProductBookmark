@@ -42,7 +42,7 @@ class BookmarkList extends Template
 
     public function getFormAction()
     {
-        return '/bookmark/bookmarklist/bookmarklist';
+        return '/bookmark/bookmarklist/save';
     }
 
     public function getBookmarkLists()
