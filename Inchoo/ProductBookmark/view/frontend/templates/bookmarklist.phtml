@@ -13,8 +13,9 @@
 <h3>My Bookmark Lists:</h3><br>
 <ul class="list">
     <?php foreach ($block->getBookmarkLists() as $bookmarkList): ?>
-    <li><?= $bookmarkList->getTitle() ?></li>
+    <li><a href="<?= $block->getBookmarkListById($bookmarkList->getId())?>"><?= $bookmarkList->getTitle() ?></a></li>
 
 
 <?php endforeach; ?>
+
 </ul>

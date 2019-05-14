@@ -2,34 +2,27 @@
 /**
  * Created by PhpStorm.
  * User: inchoo
- * Date: 5/13/19
- * Time: 1:23 PM
+ * Date: 5/14/19
+ * Time: 8:35 AM
  */
 
 namespace Inchoo\ProductBookmark\Controller\BookmarkList;
 
-use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\View\Result\PageFactory;
 
-class BookmarkList extends Action
+class BookmarkListDetails extends Action
 {
 
     /**
      * @var PageFactory
      */
-    protected $pageFactory;
-    /**
-     * @var Session
-     */
-    protected $session;
+    private $pageFactory;
 
-    public function __construct(
-        Context $context,
-        PageFactory $pageFactory
-    ) {
+    public function __construct(Context $context, PageFactory $pageFactory)
+    {
         parent::__construct($context);
         $this->pageFactory = $pageFactory;
     }

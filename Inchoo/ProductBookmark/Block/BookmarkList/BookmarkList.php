@@ -53,4 +53,9 @@ class BookmarkList extends Template
         $bookmarkLists = $this->bookmarkListRepository->getList($searchCriteria)->getItems();
         return $bookmarkLists;
     }
+
+    public function getBookmarkListById($id)
+    {
+        return $this->getUrl('bookmark/bookmarklist/bookmarklistdetails/id/',['id' => $id]);
+    }
 }

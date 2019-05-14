@@ -55,9 +55,10 @@ class Save extends Action
             $content = $this->getRequest()->getParam('title');
             $this->bookmarkListRepository->saveToDb($content, $customerId);
         } catch (\Exception $e) {
-            $this->messageManager->addErrorMessage('Could not create new bookmark list.');
+            $this->messageManager->addErrorMessage(_('Could not create new bookmark list.'));
         }
-        $this->messageManager->addSuccessMessage('Bookmark list successfully saved.');
+
+        $this->messageManager->addSuccessMessage(_('Bookmark list successfully saved.'));
         return $this->_redirect('bookmark/bookmarklist/bookmarklist');
     }
 }
