@@ -33,4 +33,13 @@ abstract class AbstractAction extends Action
             $this->session->authenticate();
         }
     }
+
+    protected function checkCustomerRights($id)
+    {
+        $customerId = $this->session->getCustomerId();
+        if ($id !== $customerId) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -21,11 +21,20 @@ class BookmarkListDetails extends AbstractAction
      * @var PageFactory
      */
     private $pageFactory;
+    /**
+     * @var \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface
+     */
+    private $bookmarkListRepository;
 
-    public function __construct(Context $context, PageFactory $pageFactory, Session $session)
-    {
+    public function __construct(
+        Context $context,
+        PageFactory $pageFactory,
+        Session $session,
+        \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository
+    ) {
         parent::__construct($context, $session);
         $this->pageFactory = $pageFactory;
+        $this->bookmarkListRepository = $bookmarkListRepository;
     }
 
     /**
@@ -39,6 +48,13 @@ class BookmarkListDetails extends AbstractAction
     public function execute()
     {
         $this->isLoggedIn();
+        $bookmarkListId = $this->getRequest()->getParam('id');
+        $bookmarkList = $this->bookmarkListRepository->getById($bookmarkListId);
+        if (!$this->checkCustomerRights($bookmarkList->getCustomerEntityId())) {
+            $this->messageManager->addErrorMessage(_('Access forbidden.'));
+            return $this->_redirect('customer/account');
+        }
+
         $resultPage = $this->pageFactory->create();
         $resultPage->getConfig()->getTitle()->set(__('My Bookmarks'));
         return $resultPage;
