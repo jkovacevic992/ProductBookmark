@@ -8,11 +8,12 @@
 
 namespace Inchoo\ProductBookmark\Controller\Bookmark;
 
-use Magento\Framework\App\Action\Action;
+use Inchoo\ProductBookmark\Controller\AbstractAction;
+use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 
-class Save extends Action
+class Save extends AbstractAction
 {
     /**
      * @var \Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface
@@ -21,9 +22,10 @@ class Save extends Action
 
     public function __construct(
         Context $context,
-        \Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface $bookmarkRepository
+        \Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface $bookmarkRepository,
+        Session $session
     ) {
-        parent::__construct($context);
+        parent::__construct($context, $session);
         $this->bookmarkRepository = $bookmarkRepository;
     }
 
@@ -37,6 +39,7 @@ class Save extends Action
      */
     public function execute()
     {
+        $this->isLoggedIn();
         $content = $this->getRequest()->getParams();
 
         $this->bookmarkRepository->saveToDb($content);

@@ -8,29 +8,27 @@
 
 namespace Inchoo\ProductBookmark\Controller\BookmarkList;
 
+use Inchoo\ProductBookmark\Controller\AbstractAction;
 use Magento\Customer\Model\Session;
-use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\View\Result\PageFactory;
 
-class BookmarkList extends Action
+class BookmarkList extends AbstractAction
 {
 
     /**
      * @var PageFactory
      */
     protected $pageFactory;
-    /**
-     * @var Session
-     */
-    protected $session;
+
 
     public function __construct(
         Context $context,
+        Session $session,
         PageFactory $pageFactory
     ) {
-        parent::__construct($context);
+        parent::__construct($context, $session);
         $this->pageFactory = $pageFactory;
     }
 
@@ -44,6 +42,7 @@ class BookmarkList extends Action
      */
     public function execute()
     {
+        $this->isLoggedIn();
         $resultPage = $this->pageFactory->create();
         $resultPage->getConfig()->getTitle()->set(__('My Bookmarks'));
         return $resultPage;

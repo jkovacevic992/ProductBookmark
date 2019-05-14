@@ -6,8 +6,8 @@
 if ($block->getProductCollection()) {
     foreach ($block->getProductCollection() as $product): ?>
 
-        <a href="<?= $product->getProductUrl(); ?>"><img src="<?= $block->getImage($product, 'product_base_image') ?>"/></a><br>
-        <p><?= $product->getName(); ?></p>
+        <a href="<?= $block->escapeUrl($product->getProductUrl()); ?>"><img src="<?= $block->escapeUrl($block->getImage($product, 'product_base_image')) ?>"/></a><br>
+        <p><?= $block->escapeHtml($product->getName()); ?></p>
 
 <?php endforeach;
 } else {

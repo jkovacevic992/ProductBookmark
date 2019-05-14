@@ -8,12 +8,12 @@
 
 namespace Inchoo\ProductBookmark\Controller\BookmarkList;
 
+use Inchoo\ProductBookmark\Controller\AbstractAction;
 use Magento\Customer\Model\Session;
-use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 
-class Save extends Action
+class Save extends AbstractAction
 {
     /**
      * @var Session
@@ -34,7 +34,7 @@ class Save extends Action
         \Inchoo\ProductBookmark\Api\Data\BookmarkListInterfaceFactory $bookmarkListModelFactory,
         \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository
     ) {
-        parent::__construct($context);
+        parent::__construct($context, $session);
         $this->session = $session;
         $this->bookmarkListModelFactory = $bookmarkListModelFactory;
         $this->bookmarkListRepository = $bookmarkListRepository;
@@ -50,6 +50,7 @@ class Save extends Action
      */
     public function execute()
     {
+        $this->isLoggedIn();
         try {
             $customerId = $this->session->getCustomerId();
             $content = $this->getRequest()->getParam('title');
