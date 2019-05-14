@@ -2,22 +2,23 @@
 /**
  * Created by PhpStorm.
  * User: inchoo
- * Date: 5/13/19
- * Time: 1:27 PM
+ * Date: 5/14/19
+ * Time: 10:04 AM
  */
 
-namespace Inchoo\ProductBookmark\Block\BookmarkList;
+namespace Inchoo\ProductBookmark\Block\Bookmark;
 
 use Magento\Customer\Model\Session;
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Template;
 
-class BookmarkList extends Template
+class Bookmark extends Template
 {
     /**
-     * @var \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface
+     * @var Registry
      */
-    private $bookmarkListRepository;
+    private $registry;
     /**
      * @var SearchCriteriaBuilder
      */
@@ -26,23 +27,34 @@ class BookmarkList extends Template
      * @var Session
      */
     private $session;
+    /**
+     * @var \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface
+     */
+    private $bookmarkListRepository;
 
     public function __construct(
         Template\Context $context,
-        \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository,
+        Registry $registry,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         Session $session,
+        \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->bookmarkListRepository = $bookmarkListRepository;
+        $this->registry = $registry;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->session = $session;
+        $this->bookmarkListRepository = $bookmarkListRepository;
     }
 
-    public function getFormAction()
+    public function getAction()
     {
-        return '/bookmark/bookmarklist/save';
+        return $this->getUrl('bookmark/bookmark/save');
+    }
+
+    public function getProductId()
+    {
+        return $this->registry->registry('product')->getId();
     }
 
     public function getBookmarkLists()
@@ -52,10 +64,5 @@ class BookmarkList extends Template
         $searchCriteria = $this->searchCriteriaBuilder->create();
         $bookmarkLists = $this->bookmarkListRepository->getList($searchCriteria)->getItems();
         return $bookmarkLists;
-    }
-
-    public function getBookmarkListById($id)
-    {
-        return $this->getUrl('bookmark/bookmarklist/bookmarklistdetails/id/', ['id' => $id]);
     }
 }

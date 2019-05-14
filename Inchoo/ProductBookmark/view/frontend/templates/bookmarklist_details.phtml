@@ -1,1 +1,17 @@
-<h1>HELLO, BITCH</h1>
+<?php
+/**
+ * @var \Magento\Catalog\Model\Product $product
+ * @var \Inchoo\ProductBookmark\Block\BookmarkList\BookmarkListDetails $block
+ */
+if ($block->getProductCollection()) {
+    foreach ($block->getProductCollection() as $product): ?>
+
+        <a href="<?= $product->getProductUrl(); ?>"><img src="<?= $block->getImage($product, 'product_base_image') ?>"/></a><br>
+        <p><?= $product->getName(); ?></p>
+
+<?php endforeach;
+} else {
+    echo "No products.";
+}
+
+?>

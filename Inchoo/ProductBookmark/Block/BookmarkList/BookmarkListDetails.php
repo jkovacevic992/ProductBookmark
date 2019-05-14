@@ -8,18 +8,72 @@
 
 namespace Inchoo\ProductBookmark\Block\BookmarkList;
 
-
+use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Message\Manager;
 use Magento\Framework\View\Element\Template;
 
 class BookmarkListDetails extends Template
 {
+    /**
+     * @var \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory
+     */
+    private $productCollectionFactory;
+    /**
+     * @var \Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface
+     */
+    private $bookmarkRepository;
+    /**
+     * @var SearchCriteriaBuilder
+     */
+    private $searchCriteriaBuilder;
+    /**
+     * @var Manager
+     */
+    private $manager;
+    /**
+     * @var \Magento\Catalog\Helper\Image
+     */
+    private $helper;
 
-    public function __construct(Template\Context $context, array $data = [])
-    {
+    public function __construct(
+        Template\Context $context,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        \Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface $bookmarkRepository,
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        \Magento\Catalog\Helper\Image $helper,
+        Manager $manager,
+        array $data = []
+    ) {
         parent::__construct($context, $data);
+        $this->productCollectionFactory = $productCollectionFactory;
+        $this->bookmarkRepository = $bookmarkRepository;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->manager = $manager;
+        $this->helper = $helper;
     }
 
+    public function getProductCollection()
+    {
+        $bookmarkListId = $this->getRequest()->getParam('id');
+        $this->searchCriteriaBuilder->addFilter('bookmark_list_entity_id', $bookmarkListId);
+        $searchCriteria = $this->searchCriteriaBuilder->create();
+        $bookmarks = $this->bookmarkRepository->getList($searchCriteria)->getItems();
+        $array = [];
+        foreach ($bookmarks as $bookmark) {
+            $array[] = $bookmark->getProductEntityId();
+        }
+        if (empty($array)) {
+            return null;
+        }
+        $collection = $this->productCollectionFactory->create();
+        $collection->addFieldToFilter('entity_id', $array)->addAttributeToSelect('name')->addAttributeToSelect('image');
+        $collection->getData();
 
+        return $collection;
+    }
 
-
+    public function getImage($product, $image)
+    {
+        return $this->helper->init($product, $image)->getUrl();
+    }
 }

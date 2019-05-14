@@ -12,6 +12,7 @@ use Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface;
 use Inchoo\ProductBookmark\Api\Data;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Escaper;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -39,12 +40,17 @@ class BookmarkRepository implements BookmarkRepositoryInterface
      * @var CollectionProcessorInterface
      */
     private $collectionProcessor;
+    /**
+     * @var Escaper
+     */
+    private $escaper;
 
     public function __construct(
         \Inchoo\ProductBookmark\Api\Data\BookmarkInterfaceFactory $bookmarkModelFactory,
         \Inchoo\ProductBookmark\Model\ResourceModel\Bookmark $bookmarkResource,
         \Inchoo\ProductBookmark\Model\ResourceModel\Bookmark\CollectionFactory $bookmarkCollectionFactory,
         \Inchoo\ProductBookmark\Api\Data\BookmarkSearchResultsInterfaceFactory $searchResultsFactory,
+        Escaper $escaper,
         CollectionProcessorInterface $collectionProcessor
     ) {
         $this->bookmarkModelFactory = $bookmarkModelFactory;
@@ -52,6 +58,7 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         $this->bookmarkCollectionFactory = $bookmarkCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
         $this->collectionProcessor = $collectionProcessor;
+        $this->escaper = $escaper;
     }
 
     public function getById($bookmarkId)
@@ -96,5 +103,15 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
         return $searchResults;
+    }
+
+    public function saveToDb($content)
+    {
+        $productId = $this->escaper->escapeHtml($content['productId']);
+        $bookmarkListId = $this->escaper->escapeHtml($content['list']);
+        $bookmark = $this->bookmarkModelFactory->create();
+        $bookmark->setBookmarkListEntityId($bookmarkListId);
+        $bookmark->setProductEntityId($productId);
+        $this->bookmarkResource->save($bookmark);
     }
 }
