@@ -14,6 +14,7 @@
 <ul class="list">
     <?php foreach ($block->getBookmarkLists() as $bookmarkList): ?>
     <li><a href="<?= $block->escapeHtml($block->getBookmarkListById($bookmarkList->getId()))?>"><?= $block->escapeHtml($bookmarkList->getTitle()) ?></a></li>
+    <a class="action submit primary" href="<?= $block->removeBookmarkList($bookmarkList->getId());?>">Delete</a>
 
 
 <?php endforeach; ?>

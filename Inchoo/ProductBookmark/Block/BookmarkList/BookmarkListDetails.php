@@ -54,8 +54,11 @@ class BookmarkListDetails extends Template
 
     public function getProductCollection()
     {
+        $websiteId = $this->_storeManager->getStore()->getWebsiteId();
         $bookmarkListId = $this->getRequest()->getParam('id');
-        $this->searchCriteriaBuilder->addFilter('bookmark_list_entity_id', $bookmarkListId);
+        $this->searchCriteriaBuilder
+            ->addFilter('bookmark_list_entity_id', $bookmarkListId)
+            ->addFilter('website_id', $websiteId);
         $searchCriteria = $this->searchCriteriaBuilder->create();
         $bookmarks = $this->bookmarkRepository->getList($searchCriteria)->getItems();
         $array = [];
@@ -79,17 +82,13 @@ class BookmarkListDetails extends Template
 
     public function removeProduct($productId)
     {
-        return $this->getUrl('bookmark/bookmark/deletebookmark/id/', ['id' => $this->getBookmarkId($productId)]);
-    }
-
-    public function getBookmarkId($productId)
-    {
         $bookmarkListId = $this->getRequest()->getParam('id');
         $this->searchCriteriaBuilder
             ->addFilter('bookmark_list_entity_id', $bookmarkListId)
             ->addFilter('product_entity_id', $productId);
         $searchCriteria = $this->searchCriteriaBuilder->create();
         $bookmark = $this->bookmarkRepository->getList($searchCriteria)->getItems();
-        return reset($bookmark)->getId();
+        return $this->getUrl('bookmark/bookmark/deletebookmark/id/', ['id' => reset($bookmark)->getId()]);
     }
+
 }

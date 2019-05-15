@@ -16,6 +16,7 @@ use Magento\Framework\Escaper;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Store\Model\StoreManagerInterface;
 
 class BookmarkRepository implements BookmarkRepositoryInterface
 {
@@ -44,6 +45,10 @@ class BookmarkRepository implements BookmarkRepositoryInterface
      * @var Escaper
      */
     private $escaper;
+    /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
 
     public function __construct(
         \Inchoo\ProductBookmark\Api\Data\BookmarkInterfaceFactory $bookmarkModelFactory,
@@ -51,6 +56,7 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         \Inchoo\ProductBookmark\Model\ResourceModel\Bookmark\CollectionFactory $bookmarkCollectionFactory,
         \Inchoo\ProductBookmark\Api\Data\BookmarkSearchResultsInterfaceFactory $searchResultsFactory,
         Escaper $escaper,
+        StoreManagerInterface $storeManager,
         CollectionProcessorInterface $collectionProcessor
     ) {
         $this->bookmarkModelFactory = $bookmarkModelFactory;
@@ -59,6 +65,7 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         $this->searchResultsFactory = $searchResultsFactory;
         $this->collectionProcessor = $collectionProcessor;
         $this->escaper = $escaper;
+        $this->storeManager = $storeManager;
     }
 
     public function getById($bookmarkId)
@@ -117,9 +124,11 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         if (!empty($id)) {
             return false;
         }
+        $websiteId = $this->storeManager->getStore()->getWebsiteId();
         $bookmark = $this->bookmarkModelFactory->create();
         $bookmark->setBookmarkListEntityId($bookmarkListId);
         $bookmark->setProductEntityId($productId);
+        $bookmark->setWebsiteId($websiteId);
         $this->bookmarkResource->save($bookmark);
         return true;
     }
