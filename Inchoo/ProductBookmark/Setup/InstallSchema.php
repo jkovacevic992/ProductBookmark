@@ -51,7 +51,8 @@ class InstallSchema implements InstallSchemaInterface
             'customer',
             'customer_entity_id',
             'customer_entity',
-            'entity_id'
+            'entity_id',
+            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
         )->setComment('Bookmark List Table');
 
         $setup->getConnection()->createTable($bookmarkListTable);
@@ -84,12 +85,14 @@ class InstallSchema implements InstallSchemaInterface
             'bookmark_list',
             'bookmark_list_entity_id',
             'bookmark_list',
-            'bookmark_list_id'
+            'bookmark_list_id',
+            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
         )->addForeignKey(
             'product',
             'product_entity_id',
             'catalog_product_entity',
-            'entity_id'
+            'entity_id',
+            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
         )->setComment('Bookmark Table');
 
         $setup->getConnection()->createTable($bookmarkTable);

@@ -8,6 +8,7 @@ if ($block->getProductCollection()) {
 
         <a href="<?= $block->escapeUrl($product->getProductUrl()); ?>"><img src="<?= $block->escapeUrl($block->getImage($product, 'product_base_image')) ?>"/></a><br>
         <p><?= $block->escapeHtml($product->getName()); ?></p>
+        <a class="action submit primary" href="<?= $block->escapeUrl($block->removeProduct($product->getId())); ?>">Remove from list</a><br>
 
 <?php endforeach;
 } else {

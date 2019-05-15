@@ -58,4 +58,9 @@ class BookmarkList extends Template
     {
         return $this->getUrl('bookmark/bookmarklist/bookmarklistdetails/id/', ['id' => $id]);
     }
+
+    public function removeBookmarkList($id)
+    {
+        return $this->getUrl('bookmark/bookmarklist/deletebookmarklist/', ['id' => $id]);
+    }
 }
