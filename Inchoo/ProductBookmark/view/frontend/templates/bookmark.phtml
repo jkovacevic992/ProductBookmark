@@ -1,10 +1,15 @@
+<?php
+/**
+* @var \Inchoo\ProductBookmark\Block\Bookmark\Bookmark $block
+ */
+?>
 <form action="<?php echo $block->getAction() ?>" method="post">
     <input class="action towishlist" type="submit" value="Bookmark">
-    <input type="hidden" id="productId" name="productId" value="<?= $block->getProductId()?>">
+    <input type="hidden" id="productId" name="productId" value="<?= $block->escapeHtml($block->getProductId())?>">
     <select name="list">
         <?php foreach ($block->getBookmarkLists() as $bookmarkList):?>
-        <option value="<?=$bookmarkList->getId()?>"><?= $bookmarkList->getTitle()?></option>
+        <option value="<?=$bookmarkList->getId()?>"><?= $block->escapeHtml($bookmarkList->getTitle())?></option>
     <?php endforeach; ?>
     </select>
 </form>
-<h1><?= $block->getId()?></h1>
+

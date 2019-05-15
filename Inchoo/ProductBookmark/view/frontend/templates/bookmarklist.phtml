@@ -4,7 +4,7 @@
  */
 ?>
 <h3>Create New Bookmark List</h3>
-<form action="<?php echo $block->getFormAction() ?>" method="post">
+<form action="<?php echo $block->escapeHtml($block->getFormAction()) ?>" method="post">
     <label for="title">Name</label>
     <input class="textarea-example-1" name="title" type="text">
     <input class="action subscribe primary" type="submit" value="Submit">
@@ -13,7 +13,7 @@
 <h3>My Bookmark Lists:</h3><br>
 <ul class="list">
     <?php foreach ($block->getBookmarkLists() as $bookmarkList): ?>
-    <li><a href="<?= $block->getBookmarkListById($bookmarkList->getId())?>"><?= $bookmarkList->getTitle() ?></a></li>
+    <li><a href="<?= $block->escapeHtml($block->getBookmarkListById($bookmarkList->getId()))?>"><?= $block->escapeHtml($bookmarkList->getTitle()) ?></a></li>
 
 
 <?php endforeach; ?>

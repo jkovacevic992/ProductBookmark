@@ -11,7 +11,8 @@ namespace Inchoo\ProductBookmark\Controller\Bookmark;
 use Inchoo\ProductBookmark\Controller\AbstractAction;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Context;
-use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\App\Request\Http;
+use Magento\Framework\UrlInterface;
 
 class Save extends AbstractAction
 {
@@ -19,14 +20,24 @@ class Save extends AbstractAction
      * @var \Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface
      */
     private $bookmarkRepository;
+    /**
+     * @var UrlInterface
+     */
+    private $url;
+    /**
+     * @var Http
+     */
+    private $request;
 
     public function __construct(
         Context $context,
         \Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface $bookmarkRepository,
-        Session $session
+        Session $session,
+        Http $request
     ) {
         parent::__construct($context, $session);
         $this->bookmarkRepository = $bookmarkRepository;
+        $this->request = $request;
     }
 
     /**
@@ -34,15 +45,17 @@ class Save extends AbstractAction
      *
      * Note: Request will be added as operation argument in future
      *
-     * @return \Magento\Framework\Controller\ResultInterface|ResponseInterface
      * @throws \Magento\Framework\Exception\NotFoundException
      */
     public function execute()
     {
         $this->isLoggedIn();
-        $content = $this->getRequest()->getParams();
+        $content = $this->request->getPost();
+        if (!$this->bookmarkRepository->saveToDb($content)) {
+            $this->messageManager->addErrorMessage('This product is already in your list.');
 
-        $this->bookmarkRepository->saveToDb($content);
+            return $this->_redirect($this->_redirect->getRefererUrl());
+        }
 
         return $this->_redirect('bookmark/bookmarklist/bookmarklist');
     }

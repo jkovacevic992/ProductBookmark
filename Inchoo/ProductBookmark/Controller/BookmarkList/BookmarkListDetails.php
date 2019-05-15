@@ -50,7 +50,7 @@ class BookmarkListDetails extends AbstractAction
         $this->isLoggedIn();
         $bookmarkListId = $this->getRequest()->getParam('id');
         $bookmarkList = $this->bookmarkListRepository->getById($bookmarkListId);
-        if (!$this->checkCustomerRights($bookmarkList->getCustomerEntityId())) {
+        if (!$this->checkCustomerPermissions($bookmarkList->getCustomerEntityId())) {
             $this->messageManager->addErrorMessage(_('Access forbidden.'));
             return $this->_redirect('customer/account');
         }

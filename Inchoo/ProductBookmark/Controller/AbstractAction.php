@@ -34,7 +34,7 @@ abstract class AbstractAction extends Action
         }
     }
 
-    protected function checkCustomerRights($id)
+    protected function checkCustomerPermissions($id)
     {
         $customerId = $this->session->getCustomerId();
         if ($id !== $customerId) {

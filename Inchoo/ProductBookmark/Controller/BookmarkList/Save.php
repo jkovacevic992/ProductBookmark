@@ -11,6 +11,7 @@ namespace Inchoo\ProductBookmark\Controller\BookmarkList;
 use Inchoo\ProductBookmark\Controller\AbstractAction;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\Request\Http;
 use Magento\Framework\App\ResponseInterface;
 
 class Save extends AbstractAction
@@ -27,17 +28,23 @@ class Save extends AbstractAction
      * @var \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface
      */
     private $bookmarkListRepository;
+    /**
+     * @var Http
+     */
+    private $request;
 
     public function __construct(
         Context $context,
         Session $session,
         \Inchoo\ProductBookmark\Api\Data\BookmarkListInterfaceFactory $bookmarkListModelFactory,
-        \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository
+        \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository,
+        Http $request
     ) {
         parent::__construct($context, $session);
         $this->session = $session;
         $this->bookmarkListModelFactory = $bookmarkListModelFactory;
         $this->bookmarkListRepository = $bookmarkListRepository;
+        $this->request = $request;
     }
 
     /**
@@ -53,7 +60,7 @@ class Save extends AbstractAction
         $this->isLoggedIn();
         try {
             $customerId = $this->session->getCustomerId();
-            $content = $this->getRequest()->getParam('title');
+            $content = $this->request->getPostValue('title');
             $this->bookmarkListRepository->saveToDb($content, $customerId);
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage(_('Could not create new bookmark list.'));
