@@ -76,4 +76,20 @@ class BookmarkListDetails extends Template
     {
         return $this->helper->init($product, $image)->getUrl();
     }
+
+    public function removeProduct($productId)
+    {
+        return $this->getUrl('bookmark/bookmark/deletebookmark/id/', ['id' => $this->getBookmarkId($productId)]);
+    }
+
+    public function getBookmarkId($productId)
+    {
+        $bookmarkListId = $this->getRequest()->getParam('id');
+        $this->searchCriteriaBuilder
+            ->addFilter('bookmark_list_entity_id', $bookmarkListId)
+            ->addFilter('product_entity_id', $productId);
+        $searchCriteria = $this->searchCriteriaBuilder->create();
+        $bookmark = $this->bookmarkRepository->getList($searchCriteria)->getItems();
+        return reset($bookmark)->getId();
+    }
 }

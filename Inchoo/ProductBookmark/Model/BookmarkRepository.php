@@ -66,7 +66,7 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         $bookmark = $this->bookmarkModelFactory->create();
         $this->bookmarkResource->load($bookmark, $bookmarkId);
         if (!$bookmark->getId()) {
-            throw new NoSuchEntityException(__('Bookmark List with that ID does not exist.'));
+            throw new NoSuchEntityException(__('Bookmark with that ID does not exist.'));
         }
         return $bookmark;
     }
@@ -123,4 +123,6 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         $this->bookmarkResource->save($bookmark);
         return true;
     }
+
+
 }
