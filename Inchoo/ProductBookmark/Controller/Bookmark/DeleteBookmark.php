@@ -39,6 +39,7 @@ class DeleteBookmark extends AbstractAction
      */
     public function execute()
     {
+        $this->isLoggedIn();
         $bookmarkId = $this->getRequest()->getParam('id');
         $bookmark = $this->bookmarkRepository->getById($bookmarkId);
         $this->bookmarkRepository->delete($bookmark);
