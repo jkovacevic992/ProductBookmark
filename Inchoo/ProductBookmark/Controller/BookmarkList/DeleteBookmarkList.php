@@ -40,8 +40,13 @@ class DeleteBookmarkList extends AbstractAction
     public function execute()
     {
         $this->isLoggedIn();
+        $customerId = $this->session->getCustomerId();
         $bookmarkListId = $this->getRequest()->getParam('id');
         $bookmarkList = $this->bookmarkListRepository->getById($bookmarkListId);
+        if ($customerId !== $bookmarkList->getCustomerEntityId()) {
+            $this->messageManager->addErrorMessage('Access forbidden.');
+            return $this->_redirect('bookmark/bookmarklist/bookmarklist');
+        }
         $this->bookmarkListRepository->delete($bookmarkList);
         $this->messageManager->addSuccessMessage('Bookmark list deleted.');
         return $this->_redirect('bookmark/bookmarklist/bookmarklist');

@@ -4,14 +4,29 @@
  */
 ?>
 <h3>Create New Bookmark List</h3>
-<form action="<?php echo $block->escapeHtml($block->getFormAction()) ?>" method="post">
-    <label for="title">Name</label>
-    <input class="textarea-example-1" name="title" type="text">
-    <input class="action subscribe primary" type="submit" value="Submit">
+
+<form data-mage-init='{"validation":{}}' class="form contact-inchoo" action="<?php /* @escapeNotVerified */ echo $block->escapeHtml($block->getFormAction()); ?>" id="contact-form" method="post" data-hasrequired="* Required Fields">
+    <fieldset class="fieldset">
+        <div class="field name required">
+            <label class="label" for="title"><span>Name</span></label>
+            <div class="control">
+                <input data-validate='{"required":true, "maxlength":255}' name="title" id="title" title="title" value="" class="input-text" type="text" />
+            </div>
+        </div>
+        <?php echo $block->getChildHtml('form.additional.info'); ?>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="Submit" class="action submit primary">
+                <span>Submit</span>
+            </button>
+        </div>
+    </div>
 </form>
 
 <h3>My Bookmark Lists:</h3><br>
-<ul class="list">
+
+<ul>
     <?php foreach ($block->getBookmarkLists() as $bookmarkList): ?>
     <li><a href="<?= $block->escapeHtml($block->getBookmarkListById($bookmarkList->getId()))?>"><?= $block->escapeHtml($bookmarkList->getTitle()) ?></a></li>
     <a class="action submit primary" href="<?= $block->removeBookmarkList($bookmarkList->getId());?>">Delete</a>
@@ -20,3 +35,4 @@
 <?php endforeach; ?>
 
 </ul>
+

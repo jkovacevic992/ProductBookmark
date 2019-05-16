@@ -18,7 +18,7 @@ abstract class AbstractAction extends Action
     /**
      * @var Session
      */
-    private $session;
+    protected $session;
 
     public function __construct(Context $context, Session $session)
     {

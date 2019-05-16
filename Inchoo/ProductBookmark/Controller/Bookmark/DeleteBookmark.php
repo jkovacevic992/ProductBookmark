@@ -19,14 +19,20 @@ class DeleteBookmark extends AbstractAction
      * @var \Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface
      */
     private $bookmarkRepository;
+    /**
+     * @var \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface
+     */
+    private $bookmarkListRepository;
 
     public function __construct(
         Context $context,
         Session $session,
-        \Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface $bookmarkRepository
+        \Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface $bookmarkRepository,
+        \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository
     ) {
         parent::__construct($context, $session);
         $this->bookmarkRepository = $bookmarkRepository;
+        $this->bookmarkListRepository = $bookmarkListRepository;
     }
 
     /**
@@ -40,8 +46,14 @@ class DeleteBookmark extends AbstractAction
     public function execute()
     {
         $this->isLoggedIn();
+        $customerId = $this->session->getCustomerId();
         $bookmarkId = $this->getRequest()->getParam('id');
         $bookmark = $this->bookmarkRepository->getById($bookmarkId);
+        $bookmarkList = $this->bookmarkListRepository->getById($bookmark->getBookmarkListEntityId());
+        if ($customerId !== $bookmarkList->getCustomerEntityId()) {
+            $this->messageManager->addErrorMessage('Access forbidden.');
+            return $this->_redirect('bookmark/bookmarklist/bookmarklist');
+        }
         $this->bookmarkRepository->delete($bookmark);
         $this->messageManager->addSuccessMessage('Product removed from bookmark list.');
         return $this->_redirect('bookmark/bookmarklist/bookmarklist');

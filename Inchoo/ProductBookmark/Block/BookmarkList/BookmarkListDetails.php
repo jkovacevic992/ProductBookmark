@@ -69,7 +69,7 @@ class BookmarkListDetails extends Template
             return null;
         }
         $collection = $this->productCollectionFactory->create();
-        $collection->addFieldToFilter('entity_id', $array)->addAttributeToSelect('name')->addAttributeToSelect('image');
+        $collection->addFieldToFilter('entity_id', $array)->addAttributeToSelect('name')->addAttributeToSelect('image')->addAttributeToSelect('price');
         $collection->getData();
 
         return $collection;
