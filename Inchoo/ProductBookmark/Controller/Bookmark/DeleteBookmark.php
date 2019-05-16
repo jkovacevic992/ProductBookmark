@@ -48,8 +48,13 @@ class DeleteBookmark extends AbstractAction
         $this->isLoggedIn();
         $customerId = $this->session->getCustomerId();
         $bookmarkId = $this->getRequest()->getParam('id');
-        $bookmark = $this->bookmarkRepository->getById($bookmarkId);
-        $bookmarkList = $this->bookmarkListRepository->getById($bookmark->getBookmarkListEntityId());
+        try {
+            $bookmark = $this->bookmarkRepository->getById($bookmarkId);
+            $bookmarkList = $this->bookmarkListRepository->getById($bookmark->getBookmarkListEntityId());
+        } catch (\Exception $e) {
+            $this->messageManager->addErrorMessage('Cannot delete bookmark.');
+            return $this->_redirect('bookmark/bookmarklist/bookmarklist');
+        }
         if ($customerId !== $bookmarkList->getCustomerEntityId()) {
             $this->messageManager->addErrorMessage('Access forbidden.');
             return $this->_redirect('bookmark/bookmarklist/bookmarklist');

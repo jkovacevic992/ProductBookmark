@@ -2,14 +2,20 @@
 /**
 * @var \Inchoo\ProductBookmark\Block\Bookmark\Bookmark $block
  */
+
+if ($block->isLoggedIn()):
 ?>
+<div class="product-addto-links">
 <form action="<?php echo $block->getAction() ?>" method="post">
-    <input class="action towishlist" type="submit" value="Bookmark">
+
     <input type="hidden" id="productId" name="productId" value="<?= $block->escapeHtml($block->getProductId())?>">
-    <select name="list">
+    <input class="action submit primary" type="submit" value="Bookmark">
+    <select style="max-width: 50%" name="list" data-toggle="dropdown">
         <?php foreach ($block->getBookmarkLists() as $bookmarkList):?>
         <option value="<?=$bookmarkList->getId()?>"><?= $block->escapeHtml($bookmarkList->getTitle())?></option>
     <?php endforeach; ?>
     </select>
-</form>
 
+</form><br>
+</div>
+<?php endif; ?>

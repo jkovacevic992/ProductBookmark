@@ -12,6 +12,7 @@ use Inchoo\ProductBookmark\Controller\AbstractAction;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 class DeleteBookmarkList extends AbstractAction
 {
@@ -41,13 +42,24 @@ class DeleteBookmarkList extends AbstractAction
     {
         $this->isLoggedIn();
         $customerId = $this->session->getCustomerId();
-        $bookmarkListId = $this->getRequest()->getParam('id');
-        $bookmarkList = $this->bookmarkListRepository->getById($bookmarkListId);
+        try {
+            $bookmarkListId = $this->getRequest()->getParam('id');
+            $bookmarkList = $this->bookmarkListRepository->getById($bookmarkListId);
+        } catch (NoSuchEntityException $e) {
+            $this->messageManager->addErrorMessage('No such bookmark list.');
+            return $this->_redirect('bookmark/bookmarklist/bookmarklist');
+        }
+
         if ($customerId !== $bookmarkList->getCustomerEntityId()) {
             $this->messageManager->addErrorMessage('Access forbidden.');
             return $this->_redirect('bookmark/bookmarklist/bookmarklist');
         }
-        $this->bookmarkListRepository->delete($bookmarkList);
+
+        if (!$this->bookmarkListRepository->delete($bookmarkList)) {
+            $this->messageManager->addErrorMessage('Cannot delete bookmark list.');
+            return $this->_redirect('bookmark/bookmarklist/bookmarklist');
+        }
+
         $this->messageManager->addSuccessMessage('Bookmark list deleted.');
         return $this->_redirect('bookmark/bookmarklist/bookmarklist');
     }

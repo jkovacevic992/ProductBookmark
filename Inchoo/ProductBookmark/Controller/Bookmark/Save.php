@@ -51,6 +51,10 @@ class Save extends AbstractAction
     {
         $this->isLoggedIn();
         $content = $this->request->getPost();
+        if ($content['list'] === null || $content['list'] === '') {
+            $this->messageManager->addErrorMessage('No bookmark list selected.');
+            return $this->_redirect($this->_redirect->getRefererUrl());
+        }
         if (!$this->bookmarkRepository->saveToDb($content)) {
             $this->messageManager->addErrorMessage('This product is already in your list.');
 

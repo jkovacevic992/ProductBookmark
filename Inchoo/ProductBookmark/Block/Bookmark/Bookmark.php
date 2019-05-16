@@ -65,4 +65,12 @@ class Bookmark extends Template
         $bookmarkLists = $this->bookmarkListRepository->getList($searchCriteria)->getItems();
         return $bookmarkLists;
     }
+
+    public function isLoggedIn()
+    {
+        if (!$this->session->isLoggedIn()) {
+            return false;
+        }
+        return true;
+    }
 }
