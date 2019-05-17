@@ -57,7 +57,6 @@ class BookmarkListDetails extends AbstractAction
 
         $resultPage = $this->pageFactory->create();
         $resultPage->getConfig()->getTitle()->set(__('My Bookmarks'));
-        if($resultPage){echo 'something';}
         return $resultPage;
 
     }

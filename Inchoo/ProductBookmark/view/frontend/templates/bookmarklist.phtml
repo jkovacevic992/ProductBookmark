@@ -25,7 +25,9 @@
 </form>
 
 <h3>My Bookmark Lists:</h3><br>
-
+<?php if ($block->getPagerHtml()): ?>
+    <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+<?php endif ?>
 <table class="table-borderless">
     <tbody>
     <tr>
@@ -33,7 +35,7 @@
         <th>Title</th>
         <th>Action</th>
     </tr>
-    <?php foreach ($block->getBookmarkLists() as $bookmarkList): ?>
+    <?php foreach ($block->getBookmarkListCollection() as $bookmarkList): ?>
     <tr>
         <td><?= $bookmarkList->getId()?></td>
     <td><a href="<?= $block->escapeHtml($block->getBookmarkListById($bookmarkList->getId()))?>"><?= $block->escapeHtml($bookmarkList->getTitle()) ?></a></td>
@@ -43,5 +45,7 @@
     <?php endforeach; ?>
     </tbody>
 </table>
+
+
 
 
