@@ -32,19 +32,25 @@ class Save extends AbstractAction
      * @var Http
      */
     private $request;
+    /**
+     * @var \Magento\Framework\Data\Form\FormKey\Validator
+     */
+    private $validator;
 
     public function __construct(
         Context $context,
         Session $session,
         \Inchoo\ProductBookmark\Api\Data\BookmarkListInterfaceFactory $bookmarkListModelFactory,
         \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository,
-        Http $request
+        Http $request,
+        \Magento\Framework\Data\Form\FormKey\Validator $validator
     ) {
         parent::__construct($context, $session);
         $this->session = $session;
         $this->bookmarkListModelFactory = $bookmarkListModelFactory;
         $this->bookmarkListRepository = $bookmarkListRepository;
         $this->request = $request;
+        $this->validator = $validator;
     }
 
     /**
@@ -58,6 +64,10 @@ class Save extends AbstractAction
     public function execute()
     {
         $this->isLoggedIn();
+        if (!$this->validator->validate($this->getRequest())) {
+            $this->messageManager->addErrorMessage('Invalid form key.');
+            return $this->_redirect('bookmark/bookmarklist/bookmarklist');
+        }
         try {
             $customerId = $this->session->getCustomerId();
             $content = $this->request->getPostValue('title');
