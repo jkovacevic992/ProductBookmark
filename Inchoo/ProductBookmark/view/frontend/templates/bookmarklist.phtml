@@ -26,13 +26,22 @@
 
 <h3>My Bookmark Lists:</h3><br>
 
-<ul>
+<table class="table-borderless">
+    <tbody>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Action</th>
+    </tr>
     <?php foreach ($block->getBookmarkLists() as $bookmarkList): ?>
-    <li><a href="<?= $block->escapeHtml($block->getBookmarkListById($bookmarkList->getId()))?>"><?= $block->escapeHtml($bookmarkList->getTitle()) ?></a></li>
-    <a class="action submit primary" href="<?= $block->removeBookmarkList($bookmarkList->getId());?>">Delete</a>
+    <tr>
+        <td><?= $bookmarkList->getId()?></td>
+    <td><a href="<?= $block->escapeHtml($block->getBookmarkListById($bookmarkList->getId()))?>"><?= $block->escapeHtml($bookmarkList->getTitle()) ?></a></td>
+    <td><a class="action submit primary" href="<?= $block->removeBookmarkList($bookmarkList->getId());?>">Delete</a></td>
+    </tr>
 
+    <?php endforeach; ?>
+    </tbody>
+</table>
 
-<?php endforeach; ?>
-
-</ul>
 

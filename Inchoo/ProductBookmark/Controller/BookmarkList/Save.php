@@ -19,7 +19,7 @@ class Save extends AbstractAction
     /**
      * @var Session
      */
-    private $session;
+    protected $session;
     /**
      * @var \Inchoo\ProductBookmark\Api\Data\BookmarkListInterfaceFactory
      */

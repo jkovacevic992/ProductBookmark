@@ -118,8 +118,8 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         $bookmarkListId = $this->escaper->escapeHtml($content['list']);
         $bookmarkCheck = $this->bookmarkCollectionFactory->create();
         $bookmarkCheck
-            ->addFieldToFilter('product_entity_id', ['eq' => $productId])
-            ->addFieldToFilter('bookmark_list_entity_id', ['eq' => $bookmarkListId]);
+            ->addFieldToFilter(Data\BookmarkInterface::PRODUCT_ENTITY_ID, ['eq' => $productId])
+            ->addFieldToFilter(Data\BookmarkInterface::BOOKMARK_LIST_ENTITY_ID, ['eq' => $bookmarkListId]);
         $id = $bookmarkCheck->getData();
         if (!empty($id)) {
             return false;

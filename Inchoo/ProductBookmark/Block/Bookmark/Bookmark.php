@@ -8,6 +8,7 @@
 
 namespace Inchoo\ProductBookmark\Block\Bookmark;
 
+use Inchoo\ProductBookmark\Api\Data\BookmarkListInterface;
 use Magento\Customer\Model\Session;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Registry;
@@ -60,7 +61,7 @@ class Bookmark extends Template
     public function getBookmarkLists()
     {
         $customerId = $this->session->getCustomerId();
-        $this->searchCriteriaBuilder->addFilter('customer_entity_id', $customerId);
+        $this->searchCriteriaBuilder->addFilter(BookmarkListInterface::CUSTOMER_ENTITY_ID, $customerId);
         $searchCriteria = $this->searchCriteriaBuilder->create();
         $bookmarkLists = $this->bookmarkListRepository->getList($searchCriteria)->getItems();
         return $bookmarkLists;

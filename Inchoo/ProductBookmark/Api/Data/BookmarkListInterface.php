@@ -12,6 +12,7 @@ interface BookmarkListInterface
 {
     const BOOKMARK_LIST_ID = 'bookmark_list_id';
     const BOOKMARK_LIST_TITLE = 'bookmark_list_title';
+    const CUSTOMER_ENTITY_ID = 'customer_entity_id';
 
     public function getId();
 

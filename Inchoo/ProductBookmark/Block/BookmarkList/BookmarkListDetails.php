@@ -8,6 +8,7 @@
 
 namespace Inchoo\ProductBookmark\Block\BookmarkList;
 
+use Inchoo\ProductBookmark\Api\Data\BookmarkInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Message\Manager;
 use Magento\Framework\View\Element\Template;
@@ -57,8 +58,8 @@ class BookmarkListDetails extends Template
         $websiteId = $this->_storeManager->getStore()->getWebsiteId();
         $bookmarkListId = $this->getRequest()->getParam('id');
         $this->searchCriteriaBuilder
-            ->addFilter('bookmark_list_entity_id', $bookmarkListId)
-            ->addFilter('website_id', $websiteId);
+            ->addFilter(BookmarkInterface::BOOKMARK_LIST_ENTITY_ID, $bookmarkListId)
+            ->addFilter(BookmarkInterface::WEBSITE_ID, $websiteId);
         $searchCriteria = $this->searchCriteriaBuilder->create();
         $bookmarks = $this->bookmarkRepository->getList($searchCriteria)->getItems();
         $array = [];
@@ -69,7 +70,11 @@ class BookmarkListDetails extends Template
             return null;
         }
         $collection = $this->productCollectionFactory->create();
-        $collection->addFieldToFilter('entity_id', $array)->addAttributeToSelect('name')->addAttributeToSelect('image')->addAttributeToSelect('price');
+        $collection
+            ->addFieldToFilter('entity_id', $array)
+            ->addAttributeToSelect('name')
+            ->addAttributeToSelect('image')
+            ->addAttributeToSelect('price');
         $collection->getData();
 
         return $collection;
@@ -84,8 +89,8 @@ class BookmarkListDetails extends Template
     {
         $bookmarkListId = $this->getRequest()->getParam('id');
         $this->searchCriteriaBuilder
-            ->addFilter('bookmark_list_entity_id', $bookmarkListId)
-            ->addFilter('product_entity_id', $productId);
+            ->addFilter(BookmarkInterface::BOOKMARK_LIST_ENTITY_ID, $bookmarkListId)
+            ->addFilter(BookmarkInterface::PRODUCT_ENTITY_ID, $productId);
         $searchCriteria = $this->searchCriteriaBuilder->create();
         $bookmark = $this->bookmarkRepository->getList($searchCriteria)->getItems();
         return $this->getUrl('bookmark/bookmark/deletebookmark/id/', ['id' => reset($bookmark)->getId()]);

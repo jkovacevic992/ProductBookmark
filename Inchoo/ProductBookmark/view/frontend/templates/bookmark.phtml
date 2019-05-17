@@ -2,8 +2,8 @@
 /**
 * @var \Inchoo\ProductBookmark\Block\Bookmark\Bookmark $block
  */
-
-if ($block->isLoggedIn()):
+$bookmarkLists = $block->getBookmarkLists();
+if ($block->isLoggedIn() && !empty($bookmarkLists)):
 ?>
 <div class="product-addto-links">
 <form action="<?php echo $block->getAction() ?>" method="post">
@@ -11,7 +11,7 @@ if ($block->isLoggedIn()):
     <input type="hidden" id="productId" name="productId" value="<?= $block->escapeHtml($block->getProductId())?>">
     <input class="action submit primary" type="submit" value="Bookmark">
     <select style="max-width: 50%" name="list" data-toggle="dropdown">
-        <?php foreach ($block->getBookmarkLists() as $bookmarkList):?>
+        <?php foreach ($bookmarkLists as $bookmarkList):?>
         <option value="<?=$bookmarkList->getId()?>"><?= $block->escapeHtml($bookmarkList->getTitle())?></option>
     <?php endforeach; ?>
     </select>
