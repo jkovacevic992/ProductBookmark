@@ -2,7 +2,7 @@
     <update handle="customer_account"/>
     <body>
         <referenceContainer name="content">
-            <block class="Inchoo\ProductBookmark\Block\BookmarkList\BookmarkList" name="bookmark_list" template="Inchoo_ProductBookmark::bookmarklist.phtml" />
+            <block class="Inchoo\ProductBookmark\Block\BookmarkList\BookmarkList" name="bookmark_list" template="Inchoo_ProductBookmark::bookmarklist.phtml" cacheable="false" />
         </referenceContainer>
     </body>
 </page>

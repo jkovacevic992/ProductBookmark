@@ -10,7 +10,7 @@
         <referenceContainer name="content">
             <referenceBlock name="product.info.addto">
                 <block  class="Inchoo\ProductBookmark\Block\Bookmark\Bookmark" name="bookmark"
-                       template="Inchoo_ProductBookmark::bookmark.phtml" before="view.addto.wishlist"/>
+                       template="Inchoo_ProductBookmark::bookmark.phtml" before="view.addto.wishlist" />
             </referenceBlock>
         </referenceContainer>
     </body>

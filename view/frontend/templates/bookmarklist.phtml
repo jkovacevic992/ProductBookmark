@@ -13,7 +13,7 @@
                 <input data-validate='{"required":true, "maxlength":255}' name="title" id="title" title="title" value="" class="input-text" type="text" />
             </div>
         </div>
-        <?php echo $block->getChildHtml('form.additional.info'); ?>
+        <?= $block->getChildHtml('form.additional.info'); ?>
     </fieldset>
     <div class="actions-toolbar">
         <div class="primary">
@@ -26,7 +26,7 @@
 
 <h3>My Bookmark Lists:</h3><br>
 <?php if ($block->getPagerHtml()): ?>
-    <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml(); ?></div>
 <?php endif ?>
 <table class="table-borderless">
     <tbody>

@@ -20,10 +20,7 @@ class Save extends AbstractAction
      * @var \Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface
      */
     private $bookmarkRepository;
-    /**
-     * @var UrlInterface
-     */
-    private $url;
+
     /**
      * @var Http
      */
@@ -60,7 +57,7 @@ class Save extends AbstractAction
 
             return $this->_redirect($this->_redirect->getRefererUrl());
         }
-
+        $this->messageManager->addSuccessMessage('Product saved to bookmark list.');
         return $this->_redirect('bookmark/bookmarklist/bookmarklistdetails/id/' . $content['list']);
     }
 }

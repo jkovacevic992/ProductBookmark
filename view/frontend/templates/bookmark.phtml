@@ -6,7 +6,7 @@ $bookmarkLists = $block->getBookmarkLists();
 if ($block->isLoggedIn() && !empty($bookmarkLists)):
 ?>
 <div class="product-addto-links">
-<form action="<?php echo $block->getAction() ?>" method="post">
+<form id = "addtobookmark" action="<?= $block->getAction() ?>" method="post">
 
     <input type="hidden" id="productId" name="productId" value="<?= $block->escapeHtml($block->getProductId())?>">
     <input class="action submit primary" type="submit" value="Bookmark">

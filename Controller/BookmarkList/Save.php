@@ -17,10 +17,6 @@ use Magento\Framework\App\ResponseInterface;
 class Save extends AbstractAction
 {
     /**
-     * @var Session
-     */
-    protected $session;
-    /**
      * @var \Inchoo\ProductBookmark\Api\Data\BookmarkListInterfaceFactory
      */
     private $bookmarkListModelFactory;
@@ -46,7 +42,6 @@ class Save extends AbstractAction
         \Magento\Framework\Data\Form\FormKey\Validator $validator
     ) {
         parent::__construct($context, $session);
-        $this->session = $session;
         $this->bookmarkListModelFactory = $bookmarkListModelFactory;
         $this->bookmarkListRepository = $bookmarkListRepository;
         $this->request = $request;

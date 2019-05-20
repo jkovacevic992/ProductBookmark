@@ -107,7 +107,6 @@ class BookmarkListRepository implements BookmarkListRepositoryInterface
     public function saveToDb($content, $customerId)
     {
         $content = $this->escaper->escapeHtml($content);
-        $customerId = $this->escaper->escapeHtml($customerId);
 
         $bookmarkList = $this->bookmarkListModelFactory->create();
         $bookmarkList->setCustomerEntityId($customerId);
