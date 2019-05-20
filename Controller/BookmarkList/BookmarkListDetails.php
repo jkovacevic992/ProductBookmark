@@ -49,15 +49,19 @@ class BookmarkListDetails extends AbstractAction
     {
         $this->isLoggedIn();
         $bookmarkListId = $this->getRequest()->getParam('id');
-        $bookmarkList = $this->bookmarkListRepository->getById($bookmarkListId);
+        try {
+            $bookmarkList = $this->bookmarkListRepository->getById($bookmarkListId);
+        } catch (\Exception $e) {
+            $this->messageManager->addErrorMessage('Could not find bookmark list');
+            return $this->_redirect('customer/account');
+        }
         if (!$this->checkCustomerPermissions($bookmarkList->getCustomerEntityId())) {
-            $this->messageManager->addErrorMessage(_('Access forbidden.'));
+            $this->messageManager->addErrorMessage(__('Access forbidden.'));
             return $this->_redirect('customer/account');
         }
 
         $resultPage = $this->pageFactory->create();
         $resultPage->getConfig()->getTitle()->set(__('My Bookmarks'));
         return $resultPage;
-
     }
 }

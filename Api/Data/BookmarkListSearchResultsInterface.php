@@ -12,7 +12,14 @@ use Magento\Framework\Api\Search\SearchResultInterface;
 
 interface BookmarkListSearchResultsInterface extends SearchResultInterface
 {
+    /**
+     * @return \Magento\Framework\Api\Search\DocumentInterface[]
+     */
     public function getItems();
 
+    /**
+     * @param array|null $items
+     * @return SearchResultInterface
+     */
     public function setItems(array $items = null);
 }

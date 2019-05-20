@@ -26,6 +26,9 @@ abstract class AbstractAction extends Action
         $this->session = $session;
     }
 
+    /**
+     * Check if user is logged in
+     */
     protected function isLoggedIn()
     {
         if (!$this->session->isLoggedIn()) {
@@ -34,6 +37,11 @@ abstract class AbstractAction extends Action
         }
     }
 
+    /**
+     * Check if customer has permissions for bookmark list
+     * @param $id
+     * @return bool
+     */
     protected function checkCustomerPermissions($id)
     {
         $customerId = $this->session->getCustomerId();

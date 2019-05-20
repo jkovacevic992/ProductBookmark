@@ -18,11 +18,18 @@ class Bookmark extends AbstractModel implements BookmarkInterface
         $this->_init(\Inchoo\ProductBookmark\Model\ResourceModel\Bookmark::class);
     }
 
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->getData(self::BOOKMARK_ID);
     }
 
+    /**
+     * @param mixed $id
+     * @return Bookmark|AbstractModel|mixed
+     */
     public function setId($id)
     {
         return $this->setData(self::BOOKMARK_ID, $id);

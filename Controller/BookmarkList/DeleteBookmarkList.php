@@ -46,21 +46,21 @@ class DeleteBookmarkList extends AbstractAction
             $bookmarkListId = $this->getRequest()->getParam('id');
             $bookmarkList = $this->bookmarkListRepository->getById($bookmarkListId);
         } catch (NoSuchEntityException $e) {
-            $this->messageManager->addErrorMessage(_('No such bookmark list.'));
+            $this->messageManager->addErrorMessage(__('No such bookmark list.'));
             return $this->_redirect('bookmark/bookmarklist/bookmarklist');
         }
 
         if ($customerId !== $bookmarkList->getCustomerEntityId()) {
-            $this->messageManager->addErrorMessage(_('Access forbidden.'));
+            $this->messageManager->addErrorMessage(__('Access forbidden.'));
             return $this->_redirect('bookmark/bookmarklist/bookmarklist');
         }
 
         if (!$this->bookmarkListRepository->delete($bookmarkList)) {
-            $this->messageManager->addErrorMessage(_('Cannot delete bookmark list.'));
+            $this->messageManager->addErrorMessage(__('Cannot delete bookmark list.'));
             return $this->_redirect('bookmark/bookmarklist/bookmarklist');
         }
 
-        $this->messageManager->addSuccessMessage(_('Bookmark list deleted.'));
+        $this->messageManager->addSuccessMessage(__('Bookmark list deleted.'));
         return $this->_redirect('bookmark/bookmarklist/bookmarklist');
     }
 }

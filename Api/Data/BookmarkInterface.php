@@ -18,7 +18,14 @@ interface BookmarkInterface
 
     const WEBSITE_ID = 'website_id';
 
+    /**
+     * @return mixed
+     */
     public function getId();
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function setId($id);
 }

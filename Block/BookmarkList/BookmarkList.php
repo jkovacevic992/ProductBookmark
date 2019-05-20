@@ -17,10 +17,6 @@ use Magento\Framework\View\Element\Template;
 class BookmarkList extends Template
 {
     /**
-     * @var \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface
-     */
-    private $bookmarkListRepository;
-    /**
      * @var SearchCriteriaBuilder
      */
     private $searchCriteriaBuilder;
@@ -35,34 +31,52 @@ class BookmarkList extends Template
 
     public function __construct(
         Template\Context $context,
-        \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         CollectionFactory $collection,
         Session $session,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->bookmarkListRepository = $bookmarkListRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->session = $session;
         $this->collection = $collection;
     }
 
+    /**
+     * Returns URL for form action
+     * @return string
+     */
     public function getFormAction()
     {
         return '/bookmark/bookmarklist/save';
     }
 
+    /**
+     * Returns Bookmark list by ID
+     * @param $id
+     * @return string
+     */
     public function getBookmarkListById($id)
     {
         return $this->getUrl('bookmark/bookmarklist/bookmarklistdetails/id/', ['id' => $id]);
     }
 
+
+    /**
+     * Removes Bookmark list by ID
+     * @param $id
+     * @return string
+     */
     public function removeBookmarkList($id)
     {
         return $this->getUrl('bookmark/bookmarklist/deletebookmarklist/', ['id' => $id]);
     }
 
+    /**
+     * Pagination
+     * @return $this|Template
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -80,10 +94,19 @@ class BookmarkList extends Template
         }
         return $this;
     }
+
+    /**
+     * @return string
+     */
     public function getPagerHtml()
     {
         return $this->getChildHtml('pager');
     }
+
+    /**
+     * Returns Bookmark list collection for pagination
+     * @return \Inchoo\ProductBookmark\Model\ResourceModel\BookmarkList\Collection
+     */
     public function getBookmarkListCollection()
     {
         $customerId = $this->session->getCustomerId();

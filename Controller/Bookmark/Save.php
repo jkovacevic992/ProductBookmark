@@ -12,7 +12,6 @@ use Inchoo\ProductBookmark\Controller\AbstractAction;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Request\Http;
-use Magento\Framework\UrlInterface;
 
 class Save extends AbstractAction
 {

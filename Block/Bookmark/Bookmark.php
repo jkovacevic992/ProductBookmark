@@ -48,23 +48,34 @@ class Bookmark extends Template
         $this->bookmarkListRepository = $bookmarkListRepository;
     }
 
+    /**
+     * Returns URL for form
+     * @return string
+     */
     public function getAction()
     {
         return $this->getUrl('bookmark/bookmark/save');
     }
 
+    /**
+     * Returns product ID from registry
+     * @return mixed
+     */
     public function getProductId()
     {
         return $this->registry->registry('product')->getId();
     }
 
+    /**
+     * Returns bookmark lists for logged in customer
+     * @return mixed
+     */
     public function getBookmarkLists()
     {
         $customerId = $this->session->getCustomerId();
         $this->searchCriteriaBuilder->addFilter(BookmarkListInterface::CUSTOMER_ENTITY_ID, $customerId);
         $searchCriteria = $this->searchCriteriaBuilder->create();
-        $bookmarkLists = $this->bookmarkListRepository->getList($searchCriteria)->getItems();
-        return $bookmarkLists;
+        return $this->bookmarkListRepository->getList($searchCriteria)->getItems();
     }
 
     public function isLoggedIn()

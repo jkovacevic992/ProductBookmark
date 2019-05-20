@@ -10,7 +10,6 @@ namespace Inchoo\ProductBookmark\Block\BookmarkList;
 
 use Inchoo\ProductBookmark\Api\Data\BookmarkInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Framework\Message\Manager;
 use Magento\Framework\View\Element\Template;
 
 class BookmarkListDetails extends Template
@@ -28,10 +27,6 @@ class BookmarkListDetails extends Template
      */
     private $searchCriteriaBuilder;
     /**
-     * @var Manager
-     */
-    private $manager;
-    /**
      * @var \Magento\Catalog\Helper\Image
      */
     private $helper;
@@ -42,17 +37,20 @@ class BookmarkListDetails extends Template
         \Inchoo\ProductBookmark\Api\BookmarkRepositoryInterface $bookmarkRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         \Magento\Catalog\Helper\Image $helper,
-        Manager $manager,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->productCollectionFactory = $productCollectionFactory;
         $this->bookmarkRepository = $bookmarkRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->manager = $manager;
         $this->helper = $helper;
     }
 
+    /**
+     * Returns product collection
+     * @return \Magento\Catalog\Model\ResourceModel\Product\Collection|null
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     public function getProductCollection()
     {
         $websiteId = $this->_storeManager->getStore()->getWebsiteId();
@@ -80,11 +78,22 @@ class BookmarkListDetails extends Template
         return $collection;
     }
 
+    /**
+     * Load product image
+     * @param $product
+     * @param $image
+     * @return string
+     */
     public function getImage($product, $image)
     {
         return $this->helper->init($product, $image)->getUrl();
     }
 
+    /**
+     * Remove product from bookmark list by ID
+     * @param $productId
+     * @return string
+     */
     public function removeProduct($productId)
     {
         $bookmarkListId = $this->getRequest()->getParam('id');

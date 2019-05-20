@@ -16,15 +16,9 @@ use Magento\Framework\Controller\ResultFactory;
 class Index extends Action
 {
 
-    /**
-     * @var ScopeConfigInterface
-     */
-    private $scopeConfig;
-
-    public function __construct(Action\Context $context, ScopeConfigInterface $scopeConfig)
+    public function __construct(Action\Context $context)
     {
         parent::__construct($context);
-        $this->scopeConfig = $scopeConfig;
     }
 
     /**
@@ -40,7 +34,7 @@ class Index extends Action
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu('Inchoo_ProductBookmark::bookmarks');
-        $resultPage->getConfig()->getTitle()->prepend(_('Bookmarked Products'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Bookmarked Products'));
 
         return $resultPage;
     }

@@ -45,7 +45,6 @@ class DataProvider extends AbstractDataProvider
     public function getData()
     {
         $bookmarks = $this->bookmarkCollection->create();
-        $bookmarks->load();
         $array = [];
 
         foreach ($bookmarks as $bookmark) {

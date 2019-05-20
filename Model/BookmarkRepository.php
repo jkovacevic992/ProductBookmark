@@ -68,6 +68,11 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         $this->storeManager = $storeManager;
     }
 
+    /**
+     * @param $bookmarkId
+     * @return Data\BookmarkInterface|mixed
+     * @throws NoSuchEntityException
+     */
     public function getById($bookmarkId)
     {
         $bookmark = $this->bookmarkModelFactory->create();
@@ -78,6 +83,11 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         return $bookmark;
     }
 
+    /**
+     * @param Data\BookmarkInterface $bookmark
+     * @return Data\BookmarkInterface|mixed
+     * @throws CouldNotSaveException
+     */
     public function save(Data\BookmarkInterface $bookmark)
     {
         try {
@@ -88,6 +98,11 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         return $bookmark;
     }
 
+    /**
+     * @param Data\BookmarkInterface $bookmark
+     * @return bool|mixed
+     * @throws CouldNotDeleteException
+     */
     public function delete(Data\BookmarkInterface $bookmark)
     {
         try {
@@ -98,6 +113,10 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         return true;
     }
 
+    /**
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return Data\BookmarkSearchResultsInterface|mixed
+     */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
         $collection = $this->bookmarkCollectionFactory->create();
@@ -112,6 +131,12 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         return $searchResults;
     }
 
+    /**
+     * @param $content
+     * @return bool
+     * @throws NoSuchEntityException
+     * @throws \Magento\Framework\Exception\AlreadyExistsException
+     */
     public function saveToDb($content)
     {
         $productId = $this->escaper->escapeHtml($content['productId']);

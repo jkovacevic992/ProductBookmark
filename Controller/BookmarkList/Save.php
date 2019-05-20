@@ -17,10 +17,6 @@ use Magento\Framework\App\ResponseInterface;
 class Save extends AbstractAction
 {
     /**
-     * @var \Inchoo\ProductBookmark\Api\Data\BookmarkListInterfaceFactory
-     */
-    private $bookmarkListModelFactory;
-    /**
      * @var \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface
      */
     private $bookmarkListRepository;
@@ -36,13 +32,11 @@ class Save extends AbstractAction
     public function __construct(
         Context $context,
         Session $session,
-        \Inchoo\ProductBookmark\Api\Data\BookmarkListInterfaceFactory $bookmarkListModelFactory,
         \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository,
         Http $request,
         \Magento\Framework\Data\Form\FormKey\Validator $validator
     ) {
         parent::__construct($context, $session);
-        $this->bookmarkListModelFactory = $bookmarkListModelFactory;
         $this->bookmarkListRepository = $bookmarkListRepository;
         $this->request = $request;
         $this->validator = $validator;
@@ -68,10 +62,10 @@ class Save extends AbstractAction
             $content = $this->request->getPostValue('title');
             $this->bookmarkListRepository->saveToDb($content, $customerId);
         } catch (\Exception $e) {
-            $this->messageManager->addErrorMessage(_('Could not create new bookmark list.'));
+            $this->messageManager->addErrorMessage(__('Could not create new bookmark list.'));
         }
 
-        $this->messageManager->addSuccessMessage(_('Bookmark list successfully saved.'));
+        $this->messageManager->addSuccessMessage(__('Bookmark list successfully saved.'));
         return $this->_redirect('bookmark/bookmarklist/bookmarklist');
     }
 }
