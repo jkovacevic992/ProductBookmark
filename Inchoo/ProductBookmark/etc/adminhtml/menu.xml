@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Inchoo_ProductBookmark::bookmarkCat" title="Bookmarks" translate="title" module="Inchoo_ProductBookmark" sortOrder="200" parent="Magento_Backend::content" resource="Inchoo_ProductBookmark::bookmarkCat"/>
+        <add id="Inchoo_ProductBookmark::bookmarks" title="Bookmarks" translate="title" module="Inchoo_ProductBookmark" sortOrder="100" parent="Inchoo_ProductBookmark::bookmarkCat" action="bookmark/bookmark/index" resource="Inchoo_ProductBookmark::bookmarks"/>
+    </menu>
+</config>
