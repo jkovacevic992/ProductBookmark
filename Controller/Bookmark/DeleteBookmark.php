@@ -61,6 +61,6 @@ class DeleteBookmark extends AbstractAction
         }
         $this->bookmarkRepository->delete($bookmark);
         $this->messageManager->addSuccessMessage('Product removed from bookmark list.');
-        return $this->_redirect('bookmark/bookmarklist/bookmarklist');
+        return $this->_redirect($this->_redirect->getRefererUrl());
     }
 }

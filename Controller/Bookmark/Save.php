@@ -61,6 +61,6 @@ class Save extends AbstractAction
             return $this->_redirect($this->_redirect->getRefererUrl());
         }
 
-        return $this->_redirect('bookmark/bookmarklist/bookmarklist');
+        return $this->_redirect('bookmark/bookmarklist/bookmarklistdetails/id/' . $content['list']);
     }
 }
