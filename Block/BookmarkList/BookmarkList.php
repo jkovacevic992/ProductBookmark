@@ -9,6 +9,7 @@
 namespace Inchoo\ProductBookmark\Block\BookmarkList;
 
 use Inchoo\ProductBookmark\Api\Data\BookmarkListInterface;
+use Inchoo\ProductBookmark\Model\ResourceModel\BookmarkList\Collection;
 use Inchoo\ProductBookmark\Model\ResourceModel\BookmarkList\CollectionFactory;
 use Magento\Customer\Model\Session;
 use Magento\Framework\Api\SearchCriteriaBuilder;
@@ -28,6 +29,10 @@ class BookmarkList extends Template
      * @var \Inchoo\ProductBookmark\Model\ResourceModel\BookmarkList\CollectionFactory
      */
     private $collection;
+    /**
+     * @var Collection $bookmarkListCollection
+     */
+    private $bookmarkListCollection;
 
     public function __construct(
         Template\Context $context,
@@ -60,7 +65,6 @@ class BookmarkList extends Template
     {
         return $this->getUrl('bookmark/bookmarklist/bookmarklistdetails/id/', ['id' => $id]);
     }
-
 
     /**
      * Removes Bookmark list by ID
@@ -109,15 +113,11 @@ class BookmarkList extends Template
      */
     public function getBookmarkListCollection()
     {
+        if ($this->bookmarkListCollection !== null) {
+            return $this->bookmarkListCollection;
+        }
         $customerId = $this->session->getCustomerId();
-        $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
-        $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest(
-
-        )->getParam('limit') : 5;
-        $collection = $this->collection->create();
-        $collection->addFieldToFilter(BookmarkListInterface::CUSTOMER_ENTITY_ID, ['eq' => $customerId]);
-        $collection->setPageSize($pageSize);
-        $collection->setCurPage($page);
-        return $collection;
+        $this->bookmarkListCollection = $this->collection->create()->addFieldToFilter(BookmarkListInterface::CUSTOMER_ENTITY_ID, ['eq' => $customerId]);
+        return $this->bookmarkListCollection;
     }
 }
