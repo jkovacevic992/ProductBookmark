@@ -53,7 +53,11 @@ class DataProvider extends AbstractDataProvider
         $timesBookmarked = array_count_values($array);
 
         try {
-            $items = $this->getCollection()->addFieldToFilter('entity_id', $array)->addAttributeToSelect('name')->toArray();
+            $items = $this
+                ->getCollection()
+                ->addFieldToFilter('entity_id', $array)
+                ->addAttributeToSelect('name')
+                ->toArray();
         } catch (\Exception $e) {
             return false;
         }

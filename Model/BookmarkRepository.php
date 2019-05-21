@@ -157,6 +157,4 @@ class BookmarkRepository implements BookmarkRepositoryInterface
         $this->bookmarkResource->save($bookmark);
         return true;
     }
-
-
 }

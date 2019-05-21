@@ -34,4 +34,55 @@ class Bookmark extends AbstractModel implements BookmarkInterface
     {
         return $this->setData(self::BOOKMARK_ID, $id);
     }
+
+    /**
+     * @param $id
+     * @return Bookmark
+     */
+    public function setWebsiteId($id)
+    {
+        return $this->setData(self::WEBSITE_ID, $id);
+    }
+
+    /**
+     * @param $id
+     * @return Bookmark
+     */
+    public function setBookmarkListEntityId($id)
+    {
+        return $this->setData(self::BOOKMARK_LIST_ENTITY_ID, $id);
+    }
+
+    /**
+     * @param $id
+     * @return Bookmark
+     */
+    public function setProductEntityId($id)
+    {
+        return $this->setData(self::PRODUCT_ENTITY_ID, $id);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWebsiteId()
+    {
+        return $this->getData(self::WEBSITE_ID);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBookmarkListEntityId()
+    {
+        return $this->getData(self::BOOKMARK_LIST_ENTITY_ID);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProductEntityId()
+    {
+        return $this->getData(self::PRODUCT_ENTITY_ID);
+    }
 }

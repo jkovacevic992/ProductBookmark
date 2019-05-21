@@ -3,14 +3,25 @@
  * @var \Inchoo\ProductBookmark\Block\BookmarkList\BookmarkList $block
  */
 ?>
+
+
 <h3>Create New Bookmark List</h3>
 
-<form data-mage-init='{"validation":{}}' class="form contact-inchoo" action="<?php /* @escapeNotVerified */ echo $block->escapeHtml($block->getFormAction()); ?>" id="contact-form" method="post" data-hasrequired="* Required Fields">
+<form data-mage-init='{"validation":{}}'
+      class="form contact-inchoo"
+      action="<?php /* @escapeNotVerified */ echo $block->escapeHtml($block->getFormAction()); ?>"
+      id="contact-form" method="post" data-hasrequired="* Required Fields">
     <fieldset class="fieldset">
         <div class="field name required">
             <label class="label" for="title"><span><?= __("Name")?></span></label>
             <div class="control">
-                <input data-validate='{"required":true, "maxlength":255}' name="title" id="title" title="title" value="" class="input-text" type="text" />
+                <input data-validate='{"required":true, "maxlength":255}'
+                       name="title"
+                       id="title"
+                       title="title"
+                       value=""
+                       class="input-text"
+                       type="text" />
             </div>
         </div>
         <?= $block->getChildHtml('form.additional.info'); ?>
@@ -38,7 +49,8 @@
     <?php foreach ($block->getBookmarkListCollection() as $bookmarkList): ?>
     <tr>
         <td><?= $bookmarkList->getId()?></td>
-    <td><a href="<?= $block->escapeHtml($block->getBookmarkListById($bookmarkList->getId()))?>"><?= $block->escapeHtml($bookmarkList->getTitle()) ?></a></td>
+    <td><a href="<?= $block->escapeHtml($block->getBookmarkListById($bookmarkList->getId()))?>">
+            <?= $block->escapeHtml($bookmarkList->getTitle()) ?></a></td>
     <td><a class="action submit primary" href="<?= $block->removeBookmarkList($bookmarkList->getId());?>"><?= __("Delete")?></a></td>
     </tr>
 
