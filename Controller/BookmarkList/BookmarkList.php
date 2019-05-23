@@ -22,7 +22,6 @@ class BookmarkList extends AbstractAction
      */
     protected $pageFactory;
 
-
     public function __construct(
         Context $context,
         Session $session,

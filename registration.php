@@ -4,4 +4,4 @@
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
     'Inchoo_ProductBookmark',
     __DIR__
-    );
+);

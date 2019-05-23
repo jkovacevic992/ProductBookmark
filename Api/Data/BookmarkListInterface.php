@@ -20,7 +20,7 @@ interface BookmarkListInterface
     public function getId();
 
     /**
-     * @param $id
+     * @param  $id
      * @return mixed
      */
     public function setId($id);
@@ -31,7 +31,7 @@ interface BookmarkListInterface
     public function getTitle();
 
     /**
-     * @param $title
+     * @param  $title
      * @return mixed
      */
     public function setTitle($title);

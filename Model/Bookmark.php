@@ -27,7 +27,7 @@ class Bookmark extends AbstractModel implements BookmarkInterface
     }
 
     /**
-     * @param mixed $id
+     * @param  mixed $id
      * @return Bookmark|AbstractModel|mixed
      */
     public function setId($id)
@@ -36,7 +36,7 @@ class Bookmark extends AbstractModel implements BookmarkInterface
     }
 
     /**
-     * @param $id
+     * @param  $id
      * @return Bookmark
      */
     public function setWebsiteId($id)
@@ -45,7 +45,7 @@ class Bookmark extends AbstractModel implements BookmarkInterface
     }
 
     /**
-     * @param $id
+     * @param  $id
      * @return Bookmark
      */
     public function setBookmarkListEntityId($id)
@@ -54,7 +54,7 @@ class Bookmark extends AbstractModel implements BookmarkInterface
     }
 
     /**
-     * @param $id
+     * @param  $id
      * @return Bookmark
      */
     public function setProductEntityId($id)

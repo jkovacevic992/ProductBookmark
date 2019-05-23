@@ -24,25 +24,25 @@ interface BookmarkInterface
     public function getId();
 
     /**
-     * @param $id
+     * @param  $id
      * @return mixed
      */
     public function setId($id);
 
     /**
-     * @param $id
+     * @param  $id
      * @return mixed
      */
     public function setWebsiteId($id);
 
     /**
-     * @param $id
+     * @param  $id
      * @return mixed
      */
     public function setBookmarkListEntityId($id);
 
     /**
-     * @param $id
+     * @param  $id
      * @return mixed
      */
     public function setProductEntityId($id);

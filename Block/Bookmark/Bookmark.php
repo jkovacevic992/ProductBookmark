@@ -9,7 +9,6 @@
 namespace Inchoo\ProductBookmark\Block\Bookmark;
 
 use Inchoo\ProductBookmark\Api\Data\BookmarkListInterface;
-use Magento\Customer\Model\Session;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Template;
@@ -25,7 +24,7 @@ class Bookmark extends Template
      */
     private $searchCriteriaBuilder;
     /**
-     * @var Session
+     * @var \Magento\Customer\Model\SessionFactory
      */
     private $session;
     /**
@@ -37,7 +36,7 @@ class Bookmark extends Template
         Template\Context $context,
         Registry $registry,
         SearchCriteriaBuilder $searchCriteriaBuilder,
-        Session $session,
+        \Magento\Customer\Model\SessionFactory $session,
         \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository,
         array $data = []
     ) {
@@ -50,6 +49,7 @@ class Bookmark extends Template
 
     /**
      * Returns URL for form
+     *
      * @return string
      */
     public function getAction()
@@ -59,6 +59,7 @@ class Bookmark extends Template
 
     /**
      * Returns product ID from registry
+     *
      * @return mixed
      */
     public function getProductId()
@@ -68,11 +69,12 @@ class Bookmark extends Template
 
     /**
      * Returns bookmark lists for logged in customer
+     *
      * @return mixed
      */
     public function getBookmarkLists()
     {
-        $customerId = $this->session->getCustomerId();
+        $customerId = $this->session->create()->getCustomerId();
         $this->searchCriteriaBuilder->addFilter(BookmarkListInterface::CUSTOMER_ENTITY_ID, $customerId);
         $searchCriteria = $this->searchCriteriaBuilder->create();
         return $this->bookmarkListRepository->getList($searchCriteria)->getItems();
@@ -80,7 +82,7 @@ class Bookmark extends Template
 
     public function isLoggedIn()
     {
-        if (!$this->session->isLoggedIn()) {
+        if (!$this->session->create()->isLoggedIn()) {
             return false;
         }
         return true;

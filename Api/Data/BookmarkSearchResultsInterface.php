@@ -18,7 +18,7 @@ interface BookmarkSearchResultsInterface extends SearchResultInterface
     public function getItems();
 
     /**
-     * @param array|null $items
+     * @param  array|null $items
      * @return SearchResultInterface
      */
     public function setItems(array $items = null);

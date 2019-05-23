@@ -49,6 +49,7 @@ class BookmarkList extends Template
 
     /**
      * Returns URL for form action
+     *
      * @return string
      */
     public function getFormAction()
@@ -58,7 +59,8 @@ class BookmarkList extends Template
 
     /**
      * Returns Bookmark list by ID
-     * @param $id
+     *
+     * @param  $id
      * @return string
      */
     public function getBookmarkListById($id)
@@ -68,7 +70,8 @@ class BookmarkList extends Template
 
     /**
      * Removes Bookmark list by ID
-     * @param $id
+     *
+     * @param  $id
      * @return string
      */
     public function removeBookmarkList($id)
@@ -78,6 +81,7 @@ class BookmarkList extends Template
 
     /**
      * Pagination
+     *
      * @return $this|Template
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -109,6 +113,7 @@ class BookmarkList extends Template
 
     /**
      * Returns Bookmark list collection for pagination
+     *
      * @return \Inchoo\ProductBookmark\Model\ResourceModel\BookmarkList\Collection
      */
     public function getBookmarkListCollection()
@@ -117,7 +122,9 @@ class BookmarkList extends Template
             return $this->bookmarkListCollection;
         }
         $customerId = $this->session->getCustomerId();
-        $this->bookmarkListCollection = $this->collection->create()->addFieldToFilter(BookmarkListInterface::CUSTOMER_ENTITY_ID, ['eq' => $customerId]);
+        $this->bookmarkListCollection = $this->collection
+            ->create()
+            ->addFieldToFilter(BookmarkListInterface::CUSTOMER_ENTITY_ID, ['eq' => $customerId]);
         return $this->bookmarkListCollection;
     }
 }

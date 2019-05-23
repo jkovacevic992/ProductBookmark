@@ -11,22 +11,25 @@
     if ($block->getProductCollection()) {
         foreach ($block->getProductCollection() as $product) : ?>
         <li class="item product product-item">
-        <a href="<?= $block->escapeUrl($product->getProductUrl()); ?>"><img src="<?= $block->escapeUrl($block->getImage($product, 'product_base_image')) ?>"/></a><br>
+        <a href="<?= $block->escapeUrl($product->getProductUrl()); ?>">
+            <img src="<?= $block->escapeUrl($block->getImage($product, 'product_base_image')) ?>"/></a><br>
         <p><?= $block->escapeHtml($product->getName()); ?></p>
-            <div class="price-box price-final_price" data-product-id="<?=$product->getId()?>">
+            <div class="price-box price-final_price" data-product-id="<?=$block->escapeHtml($product->getId())?>">
             <span class="normal-price">
                 <span class="price-label">As low as</span>
                <span class="price-wrapper ">
-                   <span class="price"><?= $product->getFormattedPrice()?></span>
+                   <span class="price"><?= $block->escapeHtml($product->getFormattedPrice())?></span>
                    </span>
             </span>
             </div>
-            <a class="action submit primary" href="<?= $block->escapeUrl($block->removeProduct($product->getId())); ?>"><?= __("Remove from list")?></a><br>
+            <a class="action submit primary"
+               href="<?= $block->escapeUrl($block->removeProduct($product->getId())); ?>">
+                <?= $block->escapeHtml(__("Remove from list"))?></a><br>
 
         </li>
-    <?php endforeach;
+            <?php endforeach;
     } else {
-        echo __("No products.");
+        echo $block->escapeHtml(__("No products."));
     }
 ?>
 </ul>

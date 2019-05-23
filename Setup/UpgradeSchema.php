@@ -19,8 +19,8 @@ class UpgradeSchema implements UpgradeSchemaInterface
     /**
      * Upgrades DB schema for a module
      *
-     * @param SchemaSetupInterface $setup
-     * @param ModuleContextInterface $context
+     * @param  SchemaSetupInterface   $setup
+     * @param  ModuleContextInterface $context
      * @return void
      */
     public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context)

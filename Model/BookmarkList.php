@@ -27,7 +27,7 @@ class BookmarkList extends AbstractModel implements BookmarkListInterface
     }
 
     /**
-     * @param mixed $id
+     * @param  mixed $id
      * @return BookmarkList|AbstractModel|mixed
      */
     public function setId($id)
@@ -44,7 +44,7 @@ class BookmarkList extends AbstractModel implements BookmarkListInterface
     }
 
     /**
-     * @param $title
+     * @param  $title
      * @return BookmarkList|mixed
      */
     public function setTitle($title)

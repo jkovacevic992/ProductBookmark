@@ -38,8 +38,6 @@ class DataProvider extends AbstractDataProvider
     }
 
     /**
-     *
-     *
      * {@inheritdoc}
      */
     public function getData()

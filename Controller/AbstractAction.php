@@ -39,7 +39,8 @@ abstract class AbstractAction extends Action
 
     /**
      * Check if customer has permissions for bookmark list
-     * @param $id
+     *
+     * @param  $id
      * @return bool
      */
     protected function checkCustomerPermissions($id)

@@ -13,25 +13,25 @@ use Magento\Framework\Api\SearchCriteriaInterface;
 interface BookmarkRepositoryInterface
 {
     /**
-     * @param $bookmarkId
+     * @param  $bookmarkId
      * @return mixed
      */
     public function getById($bookmarkId);
 
     /**
-     * @param Data\BookmarkInterface $bookmark
+     * @param  Data\BookmarkInterface $bookmark
      * @return mixed
      */
     public function save(Data\BookmarkInterface $bookmark);
 
     /**
-     * @param Data\BookmarkInterface $bookmark
+     * @param  Data\BookmarkInterface $bookmark
      * @return mixed
      */
     public function delete(Data\BookmarkInterface $bookmark);
 
     /**
-     * @param SearchCriteriaInterface $searchCriteria
+     * @param  SearchCriteriaInterface $searchCriteria
      * @return mixed
      */
     public function getList(SearchCriteriaInterface $searchCriteria);

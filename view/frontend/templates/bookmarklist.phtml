@@ -13,7 +13,7 @@
       id="contact-form" method="post" data-hasrequired="* Required Fields">
     <fieldset class="fieldset">
         <div class="field name required">
-            <label class="label" for="title"><span><?= __("Name")?></span></label>
+            <label class="label" for="title"><span><?= $block->escapeHtml(__("Name"))?></span></label>
             <div class="control">
                 <input data-validate='{"required":true, "maxlength":255}'
                        name="title"
@@ -35,23 +35,25 @@
     </div>
 </form>
 
-<h3><?= __("My Bookmark Lists:")?></h3><br>
-<?php if ($block->getPagerHtml()): ?>
+<h3><?= $block->escapeHtml(__("My Bookmark Lists:"))?></h3><br>
+<?php if ($block->getPagerHtml()) : ?>
     <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml(); ?></div>
 <?php endif ?>
 <table class="table-borderless">
     <tbody>
     <tr>
-        <th><?= __("ID")?></th>
-        <th><?= __("Title")?></th>
-        <th><?= __("Action")?></th>
+        <th><?= $block->escapeHtml(__("ID"))?></th>
+        <th><?= $block->escapeHtml(__("Title"))?></th>
+        <th><?= $block->escapeHtml(__("Action"))?></th>
     </tr>
-    <?php foreach ($block->getBookmarkListCollection() as $bookmarkList): ?>
+    <?php foreach ($block->getBookmarkListCollection() as $bookmarkList) : ?>
     <tr>
-        <td><?= $bookmarkList->getId()?></td>
+        <td><?= $block->escapeHtml($bookmarkList->getId())?></td>
     <td><a href="<?= $block->escapeHtml($block->getBookmarkListById($bookmarkList->getId()))?>">
             <?= $block->escapeHtml($bookmarkList->getTitle()) ?></a></td>
-    <td><a class="action submit primary" href="<?= $block->removeBookmarkList($bookmarkList->getId());?>"><?= __("Delete")?></a></td>
+    <td><a class="action submit primary"
+           href="<?= $block->removeBookmarkList($bookmarkList->getId());?>">
+            <?= $block->escapeHtml(__("Delete"))?></a></td>
     </tr>
 
     <?php endforeach; ?>

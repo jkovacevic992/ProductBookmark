@@ -69,7 +69,7 @@ class BookmarkRepository implements BookmarkRepositoryInterface
     }
 
     /**
-     * @param $bookmarkId
+     * @param  $bookmarkId
      * @return Data\BookmarkInterface|mixed
      * @throws NoSuchEntityException
      */
@@ -84,7 +84,7 @@ class BookmarkRepository implements BookmarkRepositoryInterface
     }
 
     /**
-     * @param Data\BookmarkInterface $bookmark
+     * @param  Data\BookmarkInterface $bookmark
      * @return Data\BookmarkInterface|mixed
      * @throws CouldNotSaveException
      */
@@ -99,7 +99,7 @@ class BookmarkRepository implements BookmarkRepositoryInterface
     }
 
     /**
-     * @param Data\BookmarkInterface $bookmark
+     * @param  Data\BookmarkInterface $bookmark
      * @return bool|mixed
      * @throws CouldNotDeleteException
      */
@@ -114,7 +114,7 @@ class BookmarkRepository implements BookmarkRepositoryInterface
     }
 
     /**
-     * @param SearchCriteriaInterface $searchCriteria
+     * @param  SearchCriteriaInterface $searchCriteria
      * @return Data\BookmarkSearchResultsInterface|mixed
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
@@ -123,7 +123,9 @@ class BookmarkRepository implements BookmarkRepositoryInterface
 
         $this->collectionProcessor->process($searchCriteria, $collection);
 
-        /** @var Data\BookmarkSearchResultsInterface $searchResults */
+        /**
+ * @var Data\BookmarkSearchResultsInterface $searchResults 
+*/
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($searchCriteria);
         $searchResults->setItems($collection->getItems());
@@ -132,7 +134,7 @@ class BookmarkRepository implements BookmarkRepositoryInterface
     }
 
     /**
-     * @param $content
+     * @param  $content
      * @return bool
      * @throws NoSuchEntityException
      * @throws \Magento\Framework\Exception\AlreadyExistsException

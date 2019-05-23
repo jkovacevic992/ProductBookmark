@@ -5,6 +5,7 @@
         <sequence>
             <module name="Magento_Wishlist"/>
             <module name="Magento_Catalog"/>
+            <module name="Magento_PageCache"/>
         </sequence>
     </module>
 

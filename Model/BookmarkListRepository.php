@@ -61,7 +61,7 @@ class BookmarkListRepository implements BookmarkListRepositoryInterface
     }
 
     /**
-     * @param $bookmarkListId
+     * @param  $bookmarkListId
      * @return Data\BookmarkListInterface|mixed
      * @throws NoSuchEntityException
      */
@@ -76,7 +76,7 @@ class BookmarkListRepository implements BookmarkListRepositoryInterface
     }
 
     /**
-     * @param Data\BookmarkListInterface $bookmarkList
+     * @param  Data\BookmarkListInterface $bookmarkList
      * @return Data\BookmarkListInterface|mixed
      * @throws CouldNotSaveException
      */
@@ -91,7 +91,7 @@ class BookmarkListRepository implements BookmarkListRepositoryInterface
     }
 
     /**
-     * @param Data\BookmarkListInterface $bookmarkList
+     * @param  Data\BookmarkListInterface $bookmarkList
      * @return bool|mixed
      * @throws CouldNotDeleteException
      */
@@ -106,7 +106,7 @@ class BookmarkListRepository implements BookmarkListRepositoryInterface
     }
 
     /**
-     * @param SearchCriteriaInterface $searchCriteria
+     * @param  SearchCriteriaInterface $searchCriteria
      * @return Data\BookmarkListSearchResultsInterface|mixed
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
@@ -115,7 +115,9 @@ class BookmarkListRepository implements BookmarkListRepositoryInterface
 
         $this->collectionProcessor->process($searchCriteria, $collection);
 
-        /** @var Data\BookmarkListSearchResultsInterface $searchResults */
+        /**
+ * @var Data\BookmarkListSearchResultsInterface $searchResults 
+*/
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($searchCriteria);
         $searchResults->setItems($collection->getItems());
@@ -124,8 +126,8 @@ class BookmarkListRepository implements BookmarkListRepositoryInterface
     }
 
     /**
-     * @param $content
-     * @param $customerId
+     * @param  $content
+     * @param  $customerId
      * @return mixed|void
      * @throws \Magento\Framework\Exception\AlreadyExistsException
      */

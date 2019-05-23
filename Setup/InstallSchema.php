@@ -19,8 +19,8 @@ class InstallSchema implements InstallSchemaInterface
     /**
      * Installs DB schema for a module
      *
-     * @param SchemaSetupInterface $setup
-     * @param ModuleContextInterface $context
+     * @param  SchemaSetupInterface   $setup
+     * @param  ModuleContextInterface $context
      * @return void
      * @throws \Zend_Db_Exception
      */

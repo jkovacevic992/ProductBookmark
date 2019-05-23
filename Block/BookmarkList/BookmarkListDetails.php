@@ -48,6 +48,7 @@ class BookmarkListDetails extends Template
 
     /**
      * Returns product collection
+     *
      * @return \Magento\Catalog\Model\ResourceModel\Product\Collection|null
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
@@ -80,8 +81,9 @@ class BookmarkListDetails extends Template
 
     /**
      * Load product image
-     * @param $product
-     * @param $image
+     *
+     * @param  $product
+     * @param  $image
      * @return string
      */
     public function getImage($product, $image)
@@ -91,7 +93,8 @@ class BookmarkListDetails extends Template
 
     /**
      * Remove product from bookmark list by ID
-     * @param $productId
+     *
+     * @param  $productId
      * @return string
      */
     public function removeProduct($productId)
@@ -104,5 +107,4 @@ class BookmarkListDetails extends Template
         $bookmark = $this->bookmarkRepository->getList($searchCriteria)->getItems();
         return $this->getUrl('bookmark/bookmark/deletebookmark/id/', ['id' => reset($bookmark)->getId()]);
     }
-
 }
