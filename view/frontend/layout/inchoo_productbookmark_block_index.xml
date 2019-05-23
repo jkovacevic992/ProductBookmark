@@ -7,11 +7,9 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="content">
-            <referenceBlock name="product.info.addto">
-                <block name="bookmark"
-                       template="Inchoo_ProductBookmark::bookmark_wrapper.phtml" before="view.addto.wishlist" />
-            </referenceBlock>
-        </referenceContainer>
+        <container name="product-bookmark-container" output="1">
+                <block  class="Inchoo\ProductBookmark\Block\Bookmark\Bookmark" name="bookmark"
+                       template="Inchoo_ProductBookmark::bookmark.phtml" />
+        </container>
     </body>
 </page>

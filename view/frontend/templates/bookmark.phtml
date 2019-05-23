@@ -2,6 +2,8 @@
 /**
  * @var \Inchoo\ProductBookmark\Block\Bookmark\Bookmark $block
  */
+
+$productId = $block->getProductId();
 $bookmarkLists = $block->getBookmarkLists();
 if ($block->isLoggedIn() && !empty($bookmarkLists)) :
 ?>

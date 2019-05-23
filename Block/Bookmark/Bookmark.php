@@ -9,6 +9,7 @@
 namespace Inchoo\ProductBookmark\Block\Bookmark;
 
 use Inchoo\ProductBookmark\Api\Data\BookmarkListInterface;
+use Magento\Customer\Model\Session;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Template;
@@ -24,20 +25,25 @@ class Bookmark extends Template
      */
     private $searchCriteriaBuilder;
     /**
-     * @var \Magento\Customer\Model\SessionFactory
+     * @var Session
      */
     private $session;
     /**
      * @var \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface
      */
     private $bookmarkListRepository;
+    /**
+     * @var \Magento\Catalog\Model\Session
+     */
+    private $catalogSession;
 
     public function __construct(
         Template\Context $context,
         Registry $registry,
         SearchCriteriaBuilder $searchCriteriaBuilder,
-        \Magento\Customer\Model\SessionFactory $session,
+        Session $session,
         \Inchoo\ProductBookmark\Api\BookmarkListRepositoryInterface $bookmarkListRepository,
+        \Magento\Catalog\Model\Session $catalogSession,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -45,6 +51,7 @@ class Bookmark extends Template
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->session = $session;
         $this->bookmarkListRepository = $bookmarkListRepository;
+        $this->catalogSession = $catalogSession;
     }
 
     /**
@@ -64,7 +71,7 @@ class Bookmark extends Template
      */
     public function getProductId()
     {
-        return $this->registry->registry('product')->getId();
+        return $this->registry->registry('product');
     }
 
     /**
@@ -74,7 +81,7 @@ class Bookmark extends Template
      */
     public function getBookmarkLists()
     {
-        $customerId = $this->session->create()->getCustomerId();
+        $customerId = $this->session->getCustomerId();
         $this->searchCriteriaBuilder->addFilter(BookmarkListInterface::CUSTOMER_ENTITY_ID, $customerId);
         $searchCriteria = $this->searchCriteriaBuilder->create();
         return $this->bookmarkListRepository->getList($searchCriteria)->getItems();
@@ -82,7 +89,7 @@ class Bookmark extends Template
 
     public function isLoggedIn()
     {
-        if (!$this->session->create()->isLoggedIn()) {
+        if (!$this->session->isLoggedIn()) {
             return false;
         }
         return true;
