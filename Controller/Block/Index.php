@@ -20,6 +20,10 @@ class Index extends Action
      * @var LayoutFactory
      */
     private $layoutFactory;
+    /**
+     * @var Registry
+     */
+    private $registry;
 
     public function __construct(Context $context, LayoutFactory $layoutFactory)
     {
