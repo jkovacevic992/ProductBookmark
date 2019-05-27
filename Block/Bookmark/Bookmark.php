@@ -71,7 +71,7 @@ class Bookmark extends Template
      */
     public function getProductId()
     {
-        return $this->registry->registry('product');
+        return $this->getRequest()->getParam('id');
     }
 
     /**
