@@ -65,16 +65,6 @@ class Bookmark extends Template
     }
 
     /**
-     * Returns product ID from registry
-     *
-     * @return mixed
-     */
-    public function getProductId()
-    {
-        return $this->getRequest()->getParam('id');
-    }
-
-    /**
      * Returns bookmark lists for logged in customer
      *
      * @return mixed
