@@ -53,10 +53,9 @@ class Save extends AbstractAction
         }
         if (!$this->bookmarkRepository->saveToDb($content)) {
             $this->messageManager->addErrorMessage('This product is already in your list.');
-
-            return $this->_redirect($this->_redirect->getRefererUrl());
+        } else {
+            $this->messageManager->addSuccessMessage('Product saved to bookmark list.');
         }
-        $this->messageManager->addSuccessMessage('Product saved to bookmark list.');
         return $this->_redirect('bookmark/bookmarklist/bookmarklistdetails/id/' . $content['list']);
     }
 }

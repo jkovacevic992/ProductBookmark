@@ -9,9 +9,8 @@
     <body>
         <referenceContainer name="content">
             <referenceBlock name="product.info.addto">
-                <block
-                        class="Magento\Catalog\Block\Product\View"
-                        name="bookmark"
+                <block class="Magento\Catalog\Block\Product\View"
+                       name="bookmark"
                        template="Inchoo_ProductBookmark::bookmark_wrapper.phtml" before="view.addto.wishlist" />
             </referenceBlock>
         </referenceContainer>
