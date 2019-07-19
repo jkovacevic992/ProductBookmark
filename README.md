@@ -14,3 +14,4 @@ The extension needs to have the following features:
 - Customer can see only bookmarks from that Magento website
 - Admin can see bookmarked products and how many times are those products bookmarked (admin grid)
 
+test
